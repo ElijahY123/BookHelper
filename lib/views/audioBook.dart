@@ -8,17 +8,6 @@ class AudioBook extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          "Select an AudioBook",
-          style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-            color: Colors.white
-          ),
-        ),
-      ),
       backgroundColor: Colors.black,
       body: Center(
         child: ListView(
@@ -50,7 +39,7 @@ class AudioBook extends StatelessWidget {
                         ),
                         SingleChildScrollView(
                             child: Column(
-                              children: List.generate(10, (index) {
+                              children: List.generate(15, (index) {
                                 return Padding(
                                     padding: const EdgeInsets.only(left: 30, right: 30, bottom: 10),
                                   child: GestureDetector(
