@@ -42,10 +42,10 @@ class _CSBookControllerState extends State<CSBookController> {
             leading: IconButton(onPressed: openRail, icon: Icon(Icons.menu)),
             centerTitle: true,
             title: Text(
-              "Hustle Hard",
+              "CS Book Helper",
               style: GoogleFonts.bungeeShade(
                 textStyle: TextStyle(
-                  fontSize: 35,
+                  fontSize: 31,
                   fontWeight: FontWeight.bold,
                 ),
               ),
