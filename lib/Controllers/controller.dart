@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:group_d_final/Models/model.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:group_d_final/views/StartupPage.dart';
+import 'package:group_d_final/views/WelcomePage.dart';
 import 'package:group_d_final/views/audioBook.dart';
 import '../views/CSV_View.dart';
 
@@ -32,23 +33,28 @@ class _CSBookControllerState extends State<CSBookController> {
     Widget? page;
     switch (pageSelected.getSelectedIndex()) {
       case 0:
-        page = AudioBook();
+        page = const AudioBook();
         break;
       case 1:
-        page = CSV_View();
+        page = const CSV_View();
         break;
+      case 2:
+        page = welcomePage();
+        break;
+      default:
+        throw UnimplementedError('No page for selected page');
     }
     return LayoutBuilder(
       builder: (context, constraints) {
         return Scaffold(
           key: scaffoldKey,
           appBar: AppBar(
-            leading: IconButton(onPressed: openRail, icon: Icon(Icons.menu)),
+            leading: IconButton(onPressed: openRail, icon: const Icon(Icons.menu)),
             centerTitle: true,
             title: Text(
               "CS Book Helper",
               style: GoogleFonts.bungeeShade(
-                textStyle: TextStyle(
+                textStyle: const TextStyle(
                   fontSize: 31,
                   fontWeight: FontWeight.bold,
                 ),
@@ -60,21 +66,27 @@ class _CSBookControllerState extends State<CSBookController> {
               children: [
                 SafeArea(
                   child: NavigationDrawer(
+                    selectedIndex: pageSelected.getSelectedIndex(),
+                    onDestinationSelected: (value) {
+                      setState(() {
+                        pageSelected.updateSelectedIndex(value);
+                      }); //SetState
+                    },
                     children: [
-                      IconButton(onPressed: closeRail, icon: Icon(Icons.close)),
-                      NavigationDrawerDestination(
+                      IconButton(onPressed: closeRail, icon: const Icon(Icons.close)),
+                      const NavigationDrawerDestination(
                         icon: Icon(Icons.home),
                         label: Text('Home Page'),
                       ),
-                      NavigationDrawerDestination(
+                      const NavigationDrawerDestination(
                         icon: Icon(Icons.table_chart),
                         label: Text('CSV Display'),
                       ),
-                      /*NavigationDrawerDestination(
-                        icon: Icon(Icons.fastfood),
-                        label: Text('Calorie Counter'),
-                      ),
                       NavigationDrawerDestination(
+                        icon: Icon(Icons.home),
+                        label: Text('Login'),
+                      ),
+                      /*NavigationDrawerDestination(
                         icon: Icon(Icons.info_outline),
                         label: Text('Workouts'),
                       ),
@@ -94,13 +106,7 @@ class _CSBookControllerState extends State<CSBookController> {
                         icon: Icon(Icons.message_outlined),
                         label: Text("Announcements"),
                       ),*/
-                    ],
-                    selectedIndex: pageSelected.getSelectedIndex(),
-                    onDestinationSelected: (value) {
-                      setState(() {
-                        pageSelected.updateSelectedIndex(value);
-                      }); //SetState
-                    }, // onDestinationSelected
+                    ], // onDestinationSelected
                   ),
                 ),
               ], // children
