@@ -1,7 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:group_d_final/Models/model.dart';
 
+AudioBooksModel booksModel = AudioBooksModel();
 
 class AudioBook extends StatelessWidget {
   const AudioBook({super.key});
@@ -10,8 +12,7 @@ class AudioBook extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Center(
-        child: ListView(
+      body: ListView(
               children: [
                 Stack(
                   children: [
@@ -29,26 +30,47 @@ class AudioBook extends StatelessWidget {
                               fit: BoxFit.cover
                             ),
                           ),
-                          child: Center(
-                            child:  Text(
-                            "Audio Books",
-                              style: GoogleFonts.aBeeZee(
-                                textStyle: const TextStyle(
-                                  fontSize: 70,
-                                  color: Colors.white
-                                ),
-                              ),
-                            ),
-                          ),
                         ),
                         const SizedBox(
-                          height: 30,
+                          height: 15,
+                        ),
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 30, right: 30),
+                                child: Container(
+                                          height: 45,
+                                          width: MediaQuery.of(context).size.width - 60,
+                                          decoration: const BoxDecoration(
+                                             border: Border(
+                                                bottom: BorderSide(
+                                                color: Colors.white,
+                                                width: 1.5
+                                                )
+                                              ),
+                                          ),
+                                          child: Text(
+                                            "Audio Books",
+                                            style: GoogleFonts.aBeeZee(
+                                              textStyle: const TextStyle(
+                                                fontSize: 30,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold
+                                              ),
+                                            ),
+                                          ),
+                              )
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15,
                         ),
                         SingleChildScrollView(
                             child: Column(
-                              children: List.generate(5, (index) {
+                              children: List.generate(booksModel.books.length, (index) {
                                 return Padding(
-                                    padding: const EdgeInsets.only(left: 30, right: 30, bottom: 10),
+                                    padding: const EdgeInsets.only(left: 30, right: 30, bottom: 25),
                                   child: GestureDetector(
                                     onTap: () {},
                                     child: Row(
@@ -59,37 +81,46 @@ class AudioBook extends StatelessWidget {
                                           decoration: BoxDecoration(
                                             color: Colors.transparent,
                                             borderRadius: BorderRadius.circular(5),
-                                            border: Border.all(color: Colors.white)
+                                            //border: Border.all(color: Colors.white)
                                           ),
                                           child: Row(
                                             children: [
                                               Container(
                                                 width: MediaQuery.of(context).size.width - 350,
                                                 height: 70,
-                                                decoration: const BoxDecoration(
+                                                decoration: BoxDecoration(
                                                   color: Colors.white,
+                                                  image: DecorationImage(
+                                                      image: AssetImage(
+                                                        booksModel.books[index]['image'],
+                                                      )
+                                                  )
                                                 ),
                                               ),
-                                              const Column(
+                                              const SizedBox(
+                                                width: 5,
+                                              ),
+                                              Column(
                                                 children: [
                                                   Text(
-                                                    "CS Book Title",
-                                                    style: TextStyle(
-                                                      fontSize: 27,
-                                                      color: Colors.white
+                                                    booksModel.books[index]['title'],
+                                                    style: const TextStyle(
+                                                      fontSize: 20,
+                                                      color: Colors.white,
+                                                        fontWeight: FontWeight.bold
                                                     ),
+                                                    textAlign: TextAlign.left,
                                                   ),
                                                   Text(
-                                                    "  Tyler the Creater, Asap Rocky",
-                                                    style: TextStyle(
+                                                    booksModel.books[index]['author'],
+                                                    style: const TextStyle(
                                                       fontSize: 15,
-                                                      color: Colors.white
+                                                      color: Colors.white54,
+                                                      fontWeight: FontWeight.bold,
                                                     ),
+                                                    textAlign: TextAlign.left
                                                   ),
                                                 ],
-                                              ),
-                                              const SizedBox(
-                                                width: 10,
                                               ),
                                             ],
                                           ),
@@ -101,6 +132,16 @@ class AudioBook extends StatelessWidget {
                               }
                               ),
                             ),
+                        ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        const Text(
+                          "** Tap on an Audio Book To Listen **",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15
+                          ),
                         )
                       ],
                     ),
@@ -108,7 +149,6 @@ class AudioBook extends StatelessWidget {
                 ),
               ],
         )
-      ),
     );
   }
 
