@@ -48,11 +48,45 @@ class AudioBook extends StatelessWidget {
                                       children: [
                                         Container(
                                           width: MediaQuery.of(context).size.width - 60,
-                                          height: 50,
+                                          height: 70,
                                           decoration: BoxDecoration(
-                                            color: Colors.green,
+                                            color: Colors.transparent,
+                                            borderRadius: BorderRadius.circular(5),
+                                            border: Border.all(color: Colors.white)
                                           ),
-                                        )
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                width: MediaQuery.of(context).size.width - 350,
+                                                height: 70,
+                                                decoration: const BoxDecoration(
+                                                  color: Colors.white
+                                                ),
+                                              ),
+                                              const Column(
+                                                children: [
+                                                  Text(
+                                                    "CS Book Title",
+                                                    style: TextStyle(
+                                                      fontSize: 27,
+                                                      color: Colors.white
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    "  Tyler the Creater, Asap Rocky",
+                                                    style: TextStyle(
+                                                      fontSize: 15,
+                                                      color: Colors.white
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
