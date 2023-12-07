@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:group_d_final/Models/model.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:group_d_final/views/StartupPage.dart';
+import 'package:group_d_final/views/WelcomePage.dart';
 import 'package:group_d_final/views/audioBook.dart';
 import '../views/CSV_View.dart';
 
@@ -36,6 +38,11 @@ class _CSBookControllerState extends State<CSBookController> {
       case 1:
         page = const CSV_View();
         break;
+      case 2:
+        page = welcomePage();
+        break;
+      default:
+        throw UnimplementedError('No page for selected page');
     }
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -75,11 +82,11 @@ class _CSBookControllerState extends State<CSBookController> {
                         icon: Icon(Icons.table_chart),
                         label: Text('CSV Display'),
                       ),
-                      /*NavigationDrawerDestination(
-                        icon: Icon(Icons.fastfood),
-                        label: Text('Calorie Counter'),
-                      ),
                       NavigationDrawerDestination(
+                        icon: Icon(Icons.home),
+                        label: Text('Login'),
+                      ),
+                      /*NavigationDrawerDestination(
                         icon: Icon(Icons.info_outline),
                         label: Text('Workouts'),
                       ),
