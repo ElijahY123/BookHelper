@@ -1,6 +1,4 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AudioBook extends StatelessWidget {
   const AudioBook({super.key});
@@ -49,7 +47,7 @@ class AudioBook extends StatelessWidget {
                                         Container(
                                           width: MediaQuery.of(context).size.width - 60,
                                           height: 50,
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             color: Colors.green,
                                           ),
                                         )
