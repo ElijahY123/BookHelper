@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+
 class AudioBook extends StatelessWidget {
   const AudioBook({super.key});
 
@@ -20,16 +21,22 @@ class AudioBook extends StatelessWidget {
                           width: MediaQuery.of(context).size.width,
                           height: 150,
                           decoration: const BoxDecoration(
-                            color: Colors.lightBlue,
+                            color: Colors.transparent,
+                            image: DecorationImage(
+                                image: AssetImage(
+                                  "assets/Images/audioBanner.jpg",
+                                ),
+                              fit: BoxFit.cover
+                            ),
                           ),
-                          child: const Center(
+                          child: Center(
                             child:  Text(
-                              //replace with something that looks nicer
                             "Audio Books",
-                              style: TextStyle(
-                                fontSize: 70,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white
+                              style: GoogleFonts.aBeeZee(
+                                textStyle: const TextStyle(
+                                  fontSize: 70,
+                                  color: Colors.white
+                                ),
                               ),
                             ),
                           ),
@@ -39,7 +46,7 @@ class AudioBook extends StatelessWidget {
                         ),
                         SingleChildScrollView(
                             child: Column(
-                              children: List.generate(15, (index) {
+                              children: List.generate(5, (index) {
                                 return Padding(
                                     padding: const EdgeInsets.only(left: 30, right: 30, bottom: 10),
                                   child: GestureDetector(
@@ -60,7 +67,7 @@ class AudioBook extends StatelessWidget {
                                                 width: MediaQuery.of(context).size.width - 350,
                                                 height: 70,
                                                 decoration: const BoxDecoration(
-                                                  color: Colors.white
+                                                  color: Colors.white,
                                                 ),
                                               ),
                                               const Column(
