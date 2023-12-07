@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:group_d_final/Models/model.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:group_d_final/views/audioBook.dart';
+import '../views/CSV_View.dart';
 
 class CSBookController extends StatefulWidget {
   const CSBookController({super.key});
@@ -33,6 +34,9 @@ class _CSBookControllerState extends State<CSBookController> {
       case 0:
         page = AudioBook();
         break;
+      case 1:
+        page = CSV_View();
+        break;
     }
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -62,11 +66,11 @@ class _CSBookControllerState extends State<CSBookController> {
                         icon: Icon(Icons.home),
                         label: Text('Home Page'),
                       ),
-                      /*NavigationDrawerDestination(
-                        icon: Icon(Icons.calendar_month),
-                        label: Text('Calendar Page'),
-                      ),
                       NavigationDrawerDestination(
+                        icon: Icon(Icons.table_chart),
+                        label: Text('CSV Display'),
+                      ),
+                      /*NavigationDrawerDestination(
                         icon: Icon(Icons.fastfood),
                         label: Text('Calorie Counter'),
                       ),
