@@ -26,7 +26,7 @@ class AudioBooksModel {
       "image": "assets/Images/pythonCrashCourse.jpg",
       "title": " Python Crash Course, 3rd E...",
       "author": "Eric Matthes",
-      "audio": "Images/Recording.mp3",
+      "audio": "Images/PythonCrashCourse.mp3",
       "length": 12.64
     },
     {
