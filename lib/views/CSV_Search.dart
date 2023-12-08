@@ -9,7 +9,7 @@ class CSV_Search extends StatefulWidget{
 
 class _CSV_Search_ViewState extends State<CSV_Search>{
 
-  List<List<dynamic>>? csvFile;
+  late Future<List<List<dynamic>>> csvFile;
 
   Future<List<List<dynamic>>> processCSV() async {
     var result = await DefaultAssetBundle.of(context).loadString(
@@ -18,8 +18,12 @@ class _CSV_Search_ViewState extends State<CSV_Search>{
     return const CsvToListConverter().convert(result, eol: "\n");
   }
 
+  var peak;
+
   @override
   Widget build(BuildContext context) {
+    csvFile = processCSV();
+    peak = csvFile.toString().length;
 
     return Scaffold(
         appBar: AppBar(
@@ -36,7 +40,7 @@ class _CSV_Search_ViewState extends State<CSV_Search>{
               builder: (BuildContext context) {
                 return AlertDialog(
                     content: Text(
-                        'you typed "$value"'
+                        'you typed "$value" '
                     ),
                   actions: <Widget>[
                     TextButton(
@@ -48,7 +52,7 @@ class _CSV_Search_ViewState extends State<CSV_Search>{
                   ],
                 );
               }
-    );
+            );
           },
     obscureText: true,
     decoration: const InputDecoration(
@@ -57,6 +61,9 @@ class _CSV_Search_ViewState extends State<CSV_Search>{
     ),
 
     ),
+      ),
+      Text(
+        '$peak'
       ),
     ],
     ),
