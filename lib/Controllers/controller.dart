@@ -1,4 +1,6 @@
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:group_d_final/Models/model.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:group_d_final/views/StartupPage.dart';
@@ -15,6 +17,7 @@ class CSBookController extends StatefulWidget {
 
 class _CSBookControllerState extends State<CSBookController> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  AudioBooksModel booksModel = AudioBooksModel();
 
   // Navigation Drawer
 
@@ -33,7 +36,10 @@ class _CSBookControllerState extends State<CSBookController> {
     Widget? page;
     switch (pageSelected.getSelectedIndex()) {
       case 0:
-        page = const AudioBook();
+        page = AudioBook(
+          books: booksModel.books,
+          player: booksModel.player,
+        );
         break;
       case 1:
         page = const CSV_View();
@@ -49,7 +55,8 @@ class _CSBookControllerState extends State<CSBookController> {
         return Scaffold(
           key: scaffoldKey,
           appBar: AppBar(
-            leading: IconButton(onPressed: openRail, icon: const Icon(Icons.menu)),
+            leading: IconButton(
+                onPressed: openRail, icon: const Icon(Icons.menu)),
             centerTitle: true,
             title: Text(
               "CS Book Helper",
@@ -73,7 +80,8 @@ class _CSBookControllerState extends State<CSBookController> {
                       }); //SetState
                     },
                     children: [
-                      IconButton(onPressed: closeRail, icon: const Icon(Icons.close)),
+                      IconButton(
+                          onPressed: closeRail, icon: const Icon(Icons.close)),
                       const NavigationDrawerDestination(
                         icon: Icon(Icons.home),
                         label: Text('Home Page'),
@@ -113,7 +121,10 @@ class _CSBookControllerState extends State<CSBookController> {
             ),
           ),
           body: Container(
-            color: Theme.of(context).colorScheme.primaryContainer,
+            color: Theme
+                .of(context)
+                .colorScheme
+                .primaryContainer,
             child: page,
           ),
         );

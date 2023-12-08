@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:group_d_final/Models/model.dart';
@@ -5,7 +6,14 @@ import 'package:group_d_final/Models/model.dart';
 AudioBooksModel booksModel = AudioBooksModel();
 
 class AudioBook extends StatelessWidget {
-  const AudioBook({super.key});
+  List books;
+  AudioPlayer player;
+
+  AudioBook({
+    required this.books,
+    required this.player,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -67,11 +75,13 @@ class AudioBook extends StatelessWidget {
                         ),
                         SingleChildScrollView(
                             child: Column(
-                              children: List.generate(booksModel.books.length, (index) {
+                              children: List.generate(books.length, (index) {
                                 return Padding(
                                     padding: const EdgeInsets.only(left: 30, right: 30, bottom: 25),
                                   child: GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      player.play(AssetSource(books[index]['audio']));
+                                      },
                                     child: Row(
                                       children: [
                                         Container(
@@ -91,7 +101,7 @@ class AudioBook extends StatelessWidget {
                                                   color: Colors.white,
                                                   image: DecorationImage(
                                                       image: AssetImage(
-                                                        booksModel.books[index]['image'],
+                                                        books[index]['image'],
                                                       )
                                                   )
                                                 ),
@@ -102,7 +112,7 @@ class AudioBook extends StatelessWidget {
                                               Column(
                                                 children: [
                                                   Text(
-                                                    booksModel.books[index]['title'],
+                                                    books[index]['title'],
                                                     style: const TextStyle(
                                                       fontSize: 20,
                                                       color: Colors.white,
@@ -111,7 +121,7 @@ class AudioBook extends StatelessWidget {
                                                     textAlign: TextAlign.left,
                                                   ),
                                                   Text(
-                                                    booksModel.books[index]['author'],
+                                                    books[index]['author'],
                                                     style: const TextStyle(
                                                       fontSize: 15,
                                                       color: Colors.white54,
@@ -150,5 +160,4 @@ class AudioBook extends StatelessWidget {
         )
     );
   }
-
 }
