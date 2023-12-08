@@ -36,17 +36,18 @@ class _CSBookControllerState extends State<CSBookController> {
     Widget? page;
     switch (pageSelected.getSelectedIndex()) {
       case 0:
-        page = AudioBook(
-          books: booksModel.books,
-          player: booksModel.player,
-        );
         break;
       case 1:
         page = const CSV_View();
         break;
       case 2:
-        page = welcomePage();
+        page = const welcomePage();
         break;
+      case 3:
+        page = AudioBook(
+          books: booksModel.books,
+          player: booksModel.player,
+        );
       default:
         throw UnimplementedError('No page for selected page');
     }
@@ -90,15 +91,15 @@ class _CSBookControllerState extends State<CSBookController> {
                         icon: Icon(Icons.table_chart),
                         label: Text('CSV Display'),
                       ),
-                      NavigationDrawerDestination(
+                      const NavigationDrawerDestination(
                         icon: Icon(Icons.home),
                         label: Text('Login'),
                       ),
-                      /*NavigationDrawerDestination(
+                      const NavigationDrawerDestination(
                         icon: Icon(Icons.info_outline),
-                        label: Text('Workouts'),
+                        label: Text('Audio Books'),
                       ),
-                      NavigationDrawerDestination(
+                      /*NavigationDrawerDestination(
                         icon: Icon(Icons.fitness_center),
                         label: Text("Start Workout"),
                       ),
