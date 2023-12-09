@@ -36,12 +36,13 @@ class _CSV_ViewState extends State<CSV_View>{
               child: TextField(
                 onSubmitted: (String value) async{
                   IsbnNumber = value;
+                  searchReturn = searchCSV(csvFile, IsbnNumber);
                   await showDialog<void>(
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
                           content: Text(
-                              'you typed "$value" '
+                              'you typed "$IsbnNumber" book return "$searchReturn" '
                           ),
                           actions: <Widget>[
                             TextButton(
@@ -103,5 +104,15 @@ class _CSV_ViewState extends State<CSV_View>{
           },
         ),
       );
+    }
+
+   searchCSV(List<List<dynamic>>? csvFile, String Isbnnumber){
+
+    for(int i = 0; i < csvFile!.length; ++i){
+      if(csvFile[i].contains(Isbnnumber)){
+        return csvFile[i];
+      }
+    }
+
     }
 }
