@@ -18,12 +18,15 @@ class _CSV_Search_ViewState extends State<CSV_Search>{
     return const CsvToListConverter().convert(result, eol: "\n");
   }
 
-  var peak;
+  List<List<dynamic>> searchedItem = [];
+  int size = 0;
+
 
   @override
   Widget build(BuildContext context) {
     csvFile = processCSV();
-    peak = csvFile.toString().length;
+    //searchedItem.add([0,1,2]);
+    //size = searchedItem.first.length;
 
     return Scaffold(
         appBar: AppBar(
@@ -35,6 +38,8 @@ class _CSV_Search_ViewState extends State<CSV_Search>{
         width: 250,
         child: TextField(
           onSubmitted: (String value) async{
+            searchedItem.add(searchCsvValue(csvFile, value));
+            size = searchedItem.first.length;
             await showDialog<void>(
               context: context,
               builder: (BuildContext context) {
@@ -54,7 +59,7 @@ class _CSV_Search_ViewState extends State<CSV_Search>{
               }
             );
           },
-    obscureText: true,
+    obscureText: false,
     decoration: const InputDecoration(
     border: OutlineInputBorder(),
     labelText: 'Input ISBN',
@@ -62,12 +67,28 @@ class _CSV_Search_ViewState extends State<CSV_Search>{
 
     ),
       ),
+
       Text(
-        '$peak'
+        '$size'
       ),
     ],
     ),
     );
   }
 
+}
+
+List<List> searchCsvValue(Future<List<List<dynamic>>> csvFile, String searchValue){
+  List<List<dynamic>> result = [];
+  
+  for(int i = 0; i < csvFile.toString().length; ++i){
+   if(csvFile.toString().contains(searchValue, 0)) {
+     result = csvFile.toString().indexOf(searchValue) as List<List>;
+   }
+  }
+    //if(csvFile.toString().){
+      //result.add(searchCsvValue(csvFile, searchValue));
+    //}
+
+  return result;
 }
