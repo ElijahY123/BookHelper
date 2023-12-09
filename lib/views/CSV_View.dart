@@ -13,6 +13,8 @@ class CSV_View extends StatefulWidget {
 class _CSV_ViewState extends State<CSV_View>{
 
   List<List<dynamic>>? csvFile;
+  late List<dynamic> searchReturn;
+  late String IsbnNumber;
 
   Future<List<List<dynamic>>> processCSV() async {
     var result = await DefaultAssetBundle.of(context).loadString(
@@ -25,10 +27,42 @@ class _CSV_ViewState extends State<CSV_View>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("CSV to text"),
+        title: const Text("CSV to text and search"),
       ),
         body: ListView(
           children: [
+            SizedBox(
+              width: 250,
+              child: TextField(
+                onSubmitted: (String value) async{
+                  IsbnNumber = value;
+                  await showDialog<void>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          content: Text(
+                              'you typed "$value" '
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        );
+                      }
+                  );
+                },
+                obscureText: false,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Input ISBN',
+                ),
+              ),
+            ),
+            const Padding(padding: EdgeInsets.all(8)),
         SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: csvFile == null

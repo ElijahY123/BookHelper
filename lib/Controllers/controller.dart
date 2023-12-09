@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:group_d_final/Models/model.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:group_d_final/views/CSV_Search.dart';
 import 'package:group_d_final/views/audioBook.dart';
 import '../views/CSV_View.dart';
 
@@ -38,9 +37,6 @@ class _CSBookControllerState extends State<CSBookController> {
       case 1:
         page = CSV_View();
         break;
-      case 2:
-        page = CSV_Search();
-        break;
     }
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -73,10 +69,6 @@ class _CSBookControllerState extends State<CSBookController> {
                       NavigationDrawerDestination(
                         icon: Icon(Icons.table_chart),
                         label: Text('CSV Display'),
-                      ),
-                      NavigationDrawerDestination(
-                        icon: Icon(Icons.search),
-                        label: Text('CSV Search'),
                       ),
                       /*NavigationDrawerDestination(
                         icon: Icon(Icons.info_outline),
