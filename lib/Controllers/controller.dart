@@ -7,6 +7,8 @@ import 'package:group_d_final/views/StartupPage.dart';
 import 'package:group_d_final/views/WelcomePage.dart';
 import 'package:group_d_final/views/audioBook.dart';
 import '../views/CSV_View.dart';
+import '../Models/VideoRepository.dart';
+import '../views/YoutubeView.dart';
 
 class CSBookController extends StatefulWidget {
   const CSBookController({super.key});
@@ -29,6 +31,16 @@ class _CSBookControllerState extends State<CSBookController> {
     Navigator.of(context).pop();
   }
 
+  void navigateToYoutubeView(List<VideoInfo> videoInfos) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => YoutubeView(
+            videoInfos: videoInfos, onWatchYoutube: navigateToYoutubeView),
+      ),
+    );
+  }
+
   SelectedPage pageSelected = SelectedPage();
 
   @override
@@ -44,6 +56,12 @@ class _CSBookControllerState extends State<CSBookController> {
         page = const welcomePage();
         break;
       case 3:
+        page = YoutubeView(
+          videoInfos: VideoRepository.videoInfos,
+          onWatchYoutube: navigateToYoutubeView,
+        );
+        break;
+      case 4:
         page = AudioBook(
           books: booksModel.books,
           player: booksModel.player,
@@ -96,16 +114,16 @@ class _CSBookControllerState extends State<CSBookController> {
                         label: Text('Login'),
                       ),
                       const NavigationDrawerDestination(
+                        icon: Icon(Icons.play_arrow),
+                        label: Text("Video Guides"),
+                      ),
+                      const NavigationDrawerDestination(
                         icon: Icon(Icons.info_outline),
                         label: Text('Audio Books'),
                       ),
                       /*NavigationDrawerDestination(
                         icon: Icon(Icons.fitness_center),
                         label: Text("Start Workout"),
-                      ),
-                      NavigationDrawerDestination(
-                        icon: Icon(Icons.play_arrow),
-                        label: Text("Video Guides"),
                       ),
                       NavigationDrawerDestination(
                           icon: Icon(Icons.table_chart),
