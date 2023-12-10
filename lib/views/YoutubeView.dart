@@ -38,16 +38,24 @@ class YoutubeView extends StatelessWidget {
                       .of(context)
                       .size
                       .width,
-                  height: 150,
+                  height: 100,
                   decoration: const BoxDecoration(
-                      color: Colors.orange,
-                      image: DecorationImage(
+                      color: Colors.blueAccent,
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Colors.lightBlueAccent,
+                          Colors.indigo
+                        ]
+                      )
+                      /*image: DecorationImage(
                           image: AssetImage(
                               "assets/Images/videoGuidesBanner.jpg"
                                   //Citation: Barysevich, I. (2022). Remote Work social media banner. Freelancer Working Distant on Pc from Home linkedin cover, Self-employed Occupation header. Cartoon Flat Vector Illustration. Retrieved from https://www.vecteezy.com/vector-art/12720076-remote-work-social-media-banner-freelancer-working-distant-on-pc-from-home-linkedin-cover-self-employed-occupation-header-cartoon-flat-vector-illustration
                           ),
                           fit: BoxFit.fill
-                      )
+                      )*/
                   ),
                   child: Center(
                     child: Text(
@@ -189,8 +197,16 @@ class YoutubeView extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 42,
+                height: 75,
               ),
+              const Text(
+                "** Tap on a Box to View Videos **",
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold
+                ),
+              )
             ],
           )
         ],
