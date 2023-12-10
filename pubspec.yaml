@@ -82,6 +82,10 @@ flutter:
     - assets/Images/CProgLang.jpg
     - assets/Images/Recording.mp3
     - assets/Images/PythonCrashCourse.mp3
+    - assets/Images/booksToRead.jpg
+    - assets/Images/studyingTips.jpg
+    - assets/Images/usefulInfo.jpg
+    - assets/Images/videoGuidesBanner.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
