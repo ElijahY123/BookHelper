@@ -78,7 +78,7 @@ class YoutubeView extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => StudyingTips(videoInfos: videoInfos, onWatchYoutube: onWatchYoutube, whichButton: 'Study Habits'))
+                      MaterialPageRoute(builder: (context) => VideoPage(videoInfos: videoInfos, onWatchYoutube: onWatchYoutube, whichButton: 'Study Habits'))
                   );
                 },
                 child: Container(
@@ -124,7 +124,7 @@ class YoutubeView extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => StudyingTips(videoInfos: videoInfos, onWatchYoutube: onWatchYoutube, whichButton: 'Useful Info'))
+                      MaterialPageRoute(builder: (context) => VideoPage(videoInfos: videoInfos, onWatchYoutube: onWatchYoutube, whichButton: 'Useful Info'))
                   );
                 },
                 child: Container(
@@ -165,7 +165,7 @@ class YoutubeView extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => StudyingTips(videoInfos: videoInfos, onWatchYoutube: onWatchYoutube, whichButton: 'Books to Read'))
+                      MaterialPageRoute(builder: (context) => VideoPage(videoInfos: videoInfos, onWatchYoutube: onWatchYoutube, whichButton: 'Books to Read'))
                   );
                 },
                 child: Container(
@@ -215,13 +215,13 @@ class YoutubeView extends StatelessWidget {
   }
 }
 
-class StudyingTips extends StatelessWidget {
+class VideoPage extends StatelessWidget {
 
   final List<VideoInfo> videoInfos;
   final void Function(List<VideoInfo> videoInfos) onWatchYoutube;
   final String whichButton;
 
-  const StudyingTips({
+  const VideoPage({
     super.key,
     required this.videoInfos,
     required this.onWatchYoutube,
