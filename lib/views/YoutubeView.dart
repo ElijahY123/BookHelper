@@ -235,16 +235,22 @@ class StudyingTips extends StatelessWidget {
         body: Stack(
           children: [
             Column(
-              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const SizedBox(
                   height: 30,
                 ),
                 Container(
-                    height: 100,
+                    height: 120,
                     width: 400,
                     decoration: const BoxDecoration(
-                      color: Colors.red,
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.red,
+                          Colors.deepOrangeAccent
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight
+                      )
                     ),
                     child: Column(
                       children: [
