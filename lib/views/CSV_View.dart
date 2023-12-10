@@ -1,6 +1,6 @@
 import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
-//import 'package:group_d_final/Models/model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CSV_View extends StatefulWidget {
   const CSV_View({super.key});
@@ -15,6 +15,7 @@ class _CSV_ViewState extends State<CSV_View>{
   List<List<dynamic>>? csvFile;
   late List<dynamic> searchReturn;
   late String IsbnNumber;
+  Uri _url = Uri.parse('https://www.kaggle.com/uzair01');
 
   Future<List<List<dynamic>>> processCSV() async {
     var result = await DefaultAssetBundle.of(context).loadString(
@@ -31,35 +32,44 @@ class _CSV_ViewState extends State<CSV_View>{
       ),
         body: ListView(
           children: [
-            SizedBox(
-              width: 250,
-              child: TextField(
-                onSubmitted: (String value) async{
-                  IsbnNumber = value;
-                  searchReturn = searchCSV(csvFile, IsbnNumber);
-                  await showDialog<void>(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          content: Text(
-                              'you typed "$IsbnNumber" book return "$searchReturn" '
-                          ),
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Text('OK'),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                  onPressed: _launchUrl,
+                  child: const Text('Source for CSV of CS Books.')),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: 250,
+                child: TextField(
+                  onSubmitted: (String value) async{
+                    IsbnNumber = value;
+                    searchReturn = searchCSV(csvFile, IsbnNumber);
+                    await showDialog<void>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            content: Text(
+                                'you typed "$IsbnNumber" book return "$searchReturn" '
                             ),
-                          ],
-                        );
-                      }
-                  );
-                },
-                obscureText: false,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Input ISBN',
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          );
+                        }
+                    );
+                  },
+                  obscureText: false,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Input ISBN or Book Title',
+                  ),
                 ),
               ),
             ),
@@ -114,5 +124,11 @@ class _CSV_ViewState extends State<CSV_View>{
       }
     }
 
+    }
+
+    Future<void> _launchUrl() async {
+    if(!await launchUrl(_url)){
+      throw Exception('Could not Launch URL: $_url ');
+    }
     }
 }
