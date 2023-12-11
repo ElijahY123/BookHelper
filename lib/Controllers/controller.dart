@@ -50,6 +50,7 @@ class _CSBookControllerState extends State<CSBookController> {
     Widget? page;
     switch (pageSelected.getSelectedIndex()) {
       case 0:
+        page = welcomePage();
         break;
       case 1:
         page = const CSV_View();
@@ -62,7 +63,7 @@ class _CSBookControllerState extends State<CSBookController> {
           videoInfos: VideoRepository.videoInfos,
           onWatchYoutube: navigateToYoutubeView,
         );
-        page = welcomePage();
+        //page = welcomePage();
         break;
       case 4:
         page = AudioBook(
