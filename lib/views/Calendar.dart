@@ -35,7 +35,51 @@ class Calendar extends StatelessWidget {
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                    scrollable: true,
+                    actionsOverflowAlignment: OverflowBarAlignment.center,
+                    title: Text("Add Event"),
+                    actions: [
+                      ElevatedButton(
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text("Book for class"),
+
+                                  );
+                                }
+                            );
+                          },
+                          child: Text("Book for Class"),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text("Book Delivery"),
+                                );
+                              }
+                          );
+                        },
+                        child: Text("Book Delivery"),
+                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text("Book Rental"),
+                                  );
+                                }
+                            );
+                          },
+                          child: Text("Book Rental"),
+                      ),
+                    ]
+                    /*scrollable: true,
                     title: Text("Event Name"),
                     content: Padding(
                       padding:  EdgeInsets.all(8),
@@ -56,6 +100,7 @@ class Calendar extends StatelessWidget {
                           child: Text("Submit")
                       )
                     ],
+                     */
                   );
                 });
           },
