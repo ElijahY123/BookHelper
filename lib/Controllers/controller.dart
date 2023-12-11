@@ -43,6 +43,13 @@ class _CSBookControllerState extends State<CSBookController> {
     );
   }
 
+  // Calendar
+  void onDaySelected(DateTime day, DateTime focusedDay) {
+    setState(() {
+      _calendarModel.onDaySelected(day, focusedDay);
+    });
+  }
+
   SelectedPage pageSelected = SelectedPage();
 
   @override
@@ -74,7 +81,7 @@ class _CSBookControllerState extends State<CSBookController> {
           today: _calendarModel.today,
           firstDay: _calendarModel.firstDay,
           lastDay: _calendarModel.lastDay,
-          onDaySelected: _calendarModel.onDaySelected,
+          onDaySelected: onDaySelected,
           events: _calendarModel.events,
           eventController: _calendarModel.eventController,
           selectedEvents: _calendarModel.selectedEvents,
@@ -132,14 +139,15 @@ class _CSBookControllerState extends State<CSBookController> {
                         icon: Icon(Icons.play_arrow),
                         label: Text("Video Guides"),
                       ),
-                      const NavigationDrawerDestination(
-                          icon: Icon(Icons.calendar_month_outlined),
-                          label: Text('Calendar'),
-                      ),
-                      /*NavigationDrawerDestination(
+                      NavigationDrawerDestination(
                         icon: Icon(Icons.info_outline),
                         label: Text('Audio Books'),
                       ),
+                      const NavigationDrawerDestination(
+                        icon: Icon(Icons.calendar_month_outlined),
+                        label: Text('Calendar'),
+                      ),
+                      /*
                       NavigationDrawerDestination(
                         icon: Icon(Icons.fitness_center),
                         label: Text("Start Workout"),

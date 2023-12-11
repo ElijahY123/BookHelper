@@ -12,8 +12,7 @@ class Calendar extends StatelessWidget {
   final ValueNotifier<List<Event>> selectedEvents;
   final List<Event> Function(DateTime day) getEventsForDay;
 
-  const Calendar ({
-    super.key,
+  Calendar ({
     required this.today,
     required this.firstDay,
     required this.lastDay,
@@ -28,7 +27,7 @@ class Calendar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Calendar'),
+        title: Text('Calendar'),
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -37,9 +36,9 @@ class Calendar extends StatelessWidget {
                 builder: (context) {
                   return AlertDialog(
                     scrollable: true,
-                    title: const Text("Event Name"),
+                    title: Text("Event Name"),
                     content: Padding(
-                      padding:  const EdgeInsets.all(8),
+                      padding:  EdgeInsets.all(8),
                       child: TextField(
                         controller: eventController,
                       ),
@@ -48,25 +47,26 @@ class Calendar extends StatelessWidget {
                       ElevatedButton(
                           onPressed: () {
                             events.addAll({
-                              today: [Event(eventController.text)]
+                              today!: [Event(eventController.text)]
                             });
+                            print(events);
                             Navigator.of(context).pop();
                             selectedEvents.value = getEventsForDay(today);
                           },
-                          child: const Text("Submit")
+                          child: Text("Submit")
                       )
                     ],
                   );
                 });
           },
-          child: const Icon(Icons.add)
+          child: Icon(Icons.add)
       ),
       body: Column(
           children: [
             TableCalendar(
               locale: "en_US",
-              rowHeight: 50,
-              headerStyle: const HeaderStyle(formatButtonVisible: false, titleCentered: true),
+              rowHeight: 40,
+              headerStyle: HeaderStyle(formatButtonVisible: false, titleCentered: true),
               availableGestures: AvailableGestures.all,
               selectedDayPredicate: (day) => isSameDay(day, today),
               focusedDay: today,
@@ -74,8 +74,9 @@ class Calendar extends StatelessWidget {
               lastDay: lastDay,
               onDaySelected: onDaySelected,
               eventLoader: getEventsForDay,
+
             ),
-            const SizedBox(height: 8.0),
+            SizedBox(height: 7.0),
             Expanded(
               child: ValueListenableBuilder<List<Event>>(
                   valueListenable: selectedEvents,
@@ -84,13 +85,13 @@ class Calendar extends StatelessWidget {
                         itemCount: value.length,
                         itemBuilder: (context, index) {
                           return Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                              margin: EdgeInsets.symmetric(horizontal: 12, vertical: 2),
                               decoration: BoxDecoration(
-                                border: Border.all(),
                                 borderRadius: BorderRadius.circular(12),
+                                color: Colors.deepPurpleAccent,
                               ),
                               child: ListTile(
-                                  onTap: () => print(""),
+                                textColor: Colors.white70,
                                   title: Text('${value[index].title}'),
                               )
                           );
