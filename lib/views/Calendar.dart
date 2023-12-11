@@ -78,6 +78,19 @@ class Calendar extends StatelessWidget {
                           },
                           child: Text("Book Rental"),
                       ),
+                      ElevatedButton(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text("Custom Event"),
+                                );
+                              }
+                          );
+                        },
+                        child: Text("Custom Event"),
+                      ),
                     ]
                     /*scrollable: true,
                     title: Text("Event Name"),
