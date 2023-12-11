@@ -63,7 +63,6 @@ class _CSBookControllerState extends State<CSBookController> {
           videoInfos: VideoRepository.videoInfos,
           onWatchYoutube: navigateToYoutubeView,
         );
-        //page = welcomePage();
         break;
       case 4:
         page = AudioBook(
@@ -132,6 +131,10 @@ class _CSBookControllerState extends State<CSBookController> {
                       const NavigationDrawerDestination(
                         icon: Icon(Icons.play_arrow),
                         label: Text("Video Guides"),
+                      ),
+                      const NavigationDrawerDestination(
+                        icon: Icon(Icons.headphones),
+                        label: Text('Audio Books'),
                       ),
                       const NavigationDrawerDestination(
                           icon: Icon(Icons.calendar_month_outlined),
