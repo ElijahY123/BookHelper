@@ -1,5 +1,7 @@
 // Selected Page Data
-
+import 'package:flutter/cupertino.dart';
+import 'package:group_d_final/Models/Event.dart';
+import "package:table_calendar/table_calendar.dart";
 
 class SelectedPage {
 
@@ -45,4 +47,24 @@ class AudioBooksModel {
     }
   ];
 
+}
+
+class CalendarModel {
+  DateTime today = DateTime.now();
+  DateTime firstDay = DateTime.now().subtract(Duration(days: 365));
+  DateTime lastDay = DateTime.now().add(Duration(days: 1826));
+  Map<DateTime, List<Event>> events = {};
+  TextEditingController eventController = TextEditingController();
+  late ValueNotifier<List<Event>> selectedEvents = ValueNotifier(getEventsForDay(today));
+
+  List<Event> getEventsForDay(DateTime day) {
+    return events[day] ?? [];
+  }
+
+  void onDaySelected(DateTime day, DateTime focusedDay) {
+    if (!isSameDay(today, day)) {
+      today = day;
+      selectedEvents.value = getEventsForDay(day);
+    }
+  }
 }

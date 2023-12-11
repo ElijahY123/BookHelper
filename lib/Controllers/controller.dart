@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:group_d_final/views/StartupPage.dart';
 import 'package:group_d_final/views/WelcomePage.dart';
 import 'package:group_d_final/views/audioBook.dart';
+import 'package:group_d_final/views/Calendar.dart';
 import '../views/CSV_View.dart';
 
 class CSBookController extends StatefulWidget {
@@ -15,6 +16,7 @@ class CSBookController extends StatefulWidget {
 
 class _CSBookControllerState extends State<CSBookController> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final CalendarModel _calendarModel = CalendarModel();
 
   // Navigation Drawer
 
@@ -40,6 +42,18 @@ class _CSBookControllerState extends State<CSBookController> {
         break;
       case 2:
         page = welcomePage();
+        break;
+      case 3:
+        page = Calendar(
+          today: _calendarModel.today,
+          firstDay: _calendarModel.firstDay,
+          lastDay: _calendarModel.lastDay,
+          onDaySelected: _calendarModel.onDaySelected,
+          events: _calendarModel.events,
+          eventController: _calendarModel.eventController,
+          selectedEvents: _calendarModel.selectedEvents,
+          getEventsForDay: _calendarModel.getEventsForDay,
+        );
         break;
       default:
         throw UnimplementedError('No page for selected page');
@@ -85,6 +99,10 @@ class _CSBookControllerState extends State<CSBookController> {
                       NavigationDrawerDestination(
                         icon: Icon(Icons.home),
                         label: Text('Login'),
+                      ),
+                      NavigationDrawerDestination(
+                          icon: Icon(Icons.calendar_month_outlined),
+                          label: Text('Calendar'),
                       ),
                       /*NavigationDrawerDestination(
                         icon: Icon(Icons.info_outline),
