@@ -1,3 +1,4 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:group_d_final/Models/Event.dart';
@@ -11,9 +12,14 @@ class Calendar extends StatelessWidget {
   final TextEditingController eventController;
   final ValueNotifier<List<Event>> selectedEvents;
   final List<Event> Function(DateTime day) getEventsForDay;
+  String selectedItem;
+  final List<String> bookList;
+  final Function(String?) onDropDownChanged;
+  final Function(dynamic context) processCSV;
+  final List<String> Function(dynamic context) getBookList;
 
-  const Calendar ({
-    super.key,
+
+  Calendar ({
     required this.today,
     required this.firstDay,
     required this.lastDay,
@@ -22,24 +28,206 @@ class Calendar extends StatelessWidget {
     required this.eventController,
     required this.selectedEvents,
     required this.getEventsForDay,
+    required this.selectedItem,
+    required this.bookList,
+    required this.onDropDownChanged,
+    required this.processCSV,
+    required this.getBookList,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Calendar'),
+        title: Text('Calendar'),
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
+            processCSV(context);
             showDialog(
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                    scrollable: true,
-                    title: const Text("Event Name"),
+                    actionsOverflowAlignment: OverflowBarAlignment.center,
+                    title: Text("Add Event"),
+                    actions: [
+                      ElevatedButton(
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text("Book for class"),
+                                    content: Padding(
+                                    padding:  EdgeInsets.all(8),
+                                    child: DropdownSearch<String> (
+                                      items: getBookList(context),
+                                      selectedItem: selectedItem,
+                                      popupProps: PopupPropsMultiSelection.menu(
+                                        showSelectedItems: true,
+                                        showSearchBox: true,
+                                      ),
+                                      onChanged: (string) {
+                                        selectedItem = string!;
+                                      }
+                                    )
+                                  ),
+                                  actions: [
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        if (events[today] != null) {
+                                          events[today]?.add(Event("Bring ${selectedItem} to class"));
+                                        }
+                                        events.putIfAbsent(today, () => [Event("Bring ${selectedItem} to class")]);
+                                        /*
+                                        events.addAll({
+                                          today: [Event("Bring ${selectedItem} to class")]
+                                        });
+                                         */
+                                        Navigator.of(context).pop();
+                                        selectedEvents.value = getEventsForDay(today);
+                                        onDaySelected(today, today);
+                                      },
+                                      child: Text("Submit"),
+                                    ),
+                                  ],
+                                  );
+                                }
+                            );
+                          },
+                          child: Text("Book for Class"),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text("Book Delivery"),
+                                  content: Padding(
+                                    padding:  EdgeInsets.all(8),
+                                    child: DropdownSearch<String> (
+                                      items: getBookList(context),
+                                      selectedItem: selectedItem,
+                                      popupProps: PopupPropsMultiSelection.menu(
+                                        showSelectedItems: true,
+                                        showSearchBox: true,
+                                      ),
+                                      onChanged: (string) {
+                                        selectedItem = string!;
+                                      }
+                                    )
+                                  ),
+                                  actions: [
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        print("Submitted");
+                                        if (events[today] != null) {
+                                          events[today]?.add(Event("${selectedItem} is being delivered"));
+                                        }
+                                        events.putIfAbsent(today, () => [Event("${selectedItem} is being delivered")]);
+                                        /*
+                                        events.addAll({
+                                          today: [Event("${selectedItem} is being delivered")]
+                                        });
+
+                                         */
+                                        Navigator.of(context).pop();
+                                        selectedEvents.value = getEventsForDay(today);
+                                        onDaySelected(today, today);
+                                      },
+                                      child: Text("Submit"),
+                                    ),
+                                  ],
+                                );
+                              }
+                          );
+                        },
+                        child: Text("Book Delivery"),
+                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text("Book Rental"),
+                                    content: Padding(
+                                        padding:  EdgeInsets.all(8),
+                                        child: DropdownSearch<String> (
+                                            items: getBookList(context),
+                                            selectedItem: selectedItem,
+                                            popupProps: PopupPropsMultiSelection.menu(
+                                              showSelectedItems: true,
+                                              showSearchBox: true,
+                                            ),
+                                            onChanged: (string) {
+                                              selectedItem = string!;
+                                            }
+                                        )
+                                    ),
+                                    actions: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          if (events[today] != null) {
+                                            events[today]?.add(Event("${selectedItem} is due to be returned"));
+                                          }
+                                          events.putIfAbsent(today, () => [Event("${selectedItem} is due to be returned")]);
+                                          /*
+                                          events.addAll({
+                                            today: [Event("${selectedItem} is due to be returned")]
+                                          });
+                                           */
+                                          Navigator.of(context).pop();
+                                          selectedEvents.value = getEventsForDay(today);
+                                          onDaySelected(today, today);
+                                        },
+                                        child: Text("Submit"),
+                                      ),
+                                    ],
+                                  );
+                                }
+                            );
+                          },
+                          child: Text("Book Rental"),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text("Custom Event"),
+                                  content: Padding(
+                                    padding:  EdgeInsets.all(8),
+                                    child: TextField(
+                                      controller: eventController,
+                                    ),
+                                  ),
+                                  actions: [
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          events.addAll({
+                                            today: [Event(eventController.text)]
+                                          });
+                                          print(events);
+                                          Navigator.of(context).pop();
+                                          selectedEvents.value = getEventsForDay(today);
+                                        },
+                                        child: Text("Submit")
+                                    )
+                                  ],
+                                );
+                              }
+                          );
+                        },
+                        child: Text("Custom Event"),
+                      ),
+                    ]
+                    /*scrollable: true,
+                    title: Text("Event Name"),
                     content: Padding(
-                      padding:  const EdgeInsets.all(8),
+                      padding:  EdgeInsets.all(8),
                       child: TextField(
                         controller: eventController,
                       ),
@@ -48,25 +236,27 @@ class Calendar extends StatelessWidget {
                       ElevatedButton(
                           onPressed: () {
                             events.addAll({
-                              today: [Event(eventController.text)]
+                              today!: [Event(eventController.text)]
                             });
+                            print(events);
                             Navigator.of(context).pop();
                             selectedEvents.value = getEventsForDay(today);
                           },
-                          child: const Text("Submit")
+                          child: Text("Submit")
                       )
                     ],
+                     */
                   );
                 });
           },
-          child: const Icon(Icons.add)
+          child: Icon(Icons.add)
       ),
       body: Column(
           children: [
             TableCalendar(
               locale: "en_US",
-              rowHeight: 50,
-              headerStyle: const HeaderStyle(formatButtonVisible: false, titleCentered: true),
+              rowHeight: 40,
+              headerStyle: HeaderStyle(formatButtonVisible: false, titleCentered: true),
               availableGestures: AvailableGestures.all,
               selectedDayPredicate: (day) => isSameDay(day, today),
               focusedDay: today,
@@ -74,8 +264,9 @@ class Calendar extends StatelessWidget {
               lastDay: lastDay,
               onDaySelected: onDaySelected,
               eventLoader: getEventsForDay,
+
             ),
-            const SizedBox(height: 8.0),
+            SizedBox(height: 7.0),
             Expanded(
               child: ValueListenableBuilder<List<Event>>(
                   valueListenable: selectedEvents,
@@ -84,13 +275,13 @@ class Calendar extends StatelessWidget {
                         itemCount: value.length,
                         itemBuilder: (context, index) {
                           return Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                              margin: EdgeInsets.symmetric(horizontal: 12, vertical: 2),
                               decoration: BoxDecoration(
-                                border: Border.all(),
                                 borderRadius: BorderRadius.circular(12),
+                                color: Colors.deepPurpleAccent,
                               ),
                               child: ListTile(
-                                  onTap: () => print(""),
+                                textColor: Colors.white70,
                                   title: Text('${value[index].title}'),
                               )
                           );
