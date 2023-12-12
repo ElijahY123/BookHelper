@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:group_d_final/Models/model.dart';
+import 'package:group_d_final/views/LoginPage.dart';
 
-class accountHandling extends StatefulWidget {
-  const accountHandling({super.key});
+class registerPage extends StatefulWidget {
+  const registerPage({super.key});
 
   @override
-  State<accountHandling> createState() => _accountLogin();
-  State<accountHandling> createState2() => _accountCreate();
+  State<registerPage> createState() => _accountCreate();
 }
 
-class _accountLogin extends State<accountHandling> {
+class _accountCreate extends State<registerPage> {
+  AccountModel accountModel = AccountModel();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +21,7 @@ class _accountLogin extends State<accountHandling> {
           Container(
             height: double.infinity,
             width: double.infinity,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
                   Color(0xff8d76d3),
@@ -34,19 +37,19 @@ class _accountLogin extends State<accountHandling> {
                 left: 22,
               ),
               child: Text(
-                "Welcome",
+                "Create Account",
                 style: GoogleFonts.gasoekOne(
-                  textStyle: TextStyle(fontSize: 50, color: Colors.white),
+                  textStyle: const TextStyle(fontSize: 40, color: Colors.white),
                 ),
               ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 150),
+            padding: const EdgeInsets.only(top: 140),
             child: Container(
               height: double.infinity,
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(40),
                   topRight: Radius.circular(40),
@@ -62,7 +65,8 @@ class _accountLogin extends State<accountHandling> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextField(
-                      keyboardAppearance: Brightness.dark,
+                      controller: accountModel.usernameController,
+                      obscureText: false,
                       decoration: InputDecoration(
                         label: Text(
                           "Username",
@@ -73,6 +77,7 @@ class _accountLogin extends State<accountHandling> {
                       ),
                     ),
                     TextField(
+                      controller: accountModel.passwordController,
                       obscureText: true,
                       decoration: InputDecoration(
                         label: Text(
@@ -83,15 +88,43 @@ class _accountLogin extends State<accountHandling> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 70,),
+                    TextField(
+                      controller: accountModel.confirmController,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        label: Text(
+                          "Confirm Password",
+                          style: TextStyle(
+                            color: Colors.deepPurple,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 30,),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        FocusScope.of(context).unfocus();
+                        if (accountModel.confirmPassword == accountModel.passWord) {
+                          accountModel
+                              .addAccount(accountModel.userName, accountModel.passWord);
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => loginPage()));
+                        }
+                        else {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            backgroundColor: Colors.deepPurple,
+                            content: Text("Passwords Do Not Match"),
+                              ));
+                        }
+                      },
                       child: Container(
                         height: 100,
                         width: 300,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          gradient: LinearGradient(
+                          gradient: const LinearGradient(
                             colors: [
                               Color(0xff8d76d3),
                               Color(0xff5c53cb),
@@ -102,10 +135,10 @@ class _accountLogin extends State<accountHandling> {
                         ),
                         child: Center(
                           child: Text(
-                              "Login",
+                            "Sign Up",
                             style: GoogleFonts.gasoekOne(
                               color: Colors.white,
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontSize: 40,
                               ),
                             ),
@@ -113,22 +146,31 @@ class _accountLogin extends State<accountHandling> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 25,),
+                    const SizedBox(height: 15,),
+                    Text(
+                      "Already a member?",
+                      style: GoogleFonts.gasoekOne(
+                        color: Colors.deepPurple,
+                        textStyle: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
                     TextButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => Container()));
-                        },
-                        child: Text(
-                          "Join Now!",
-                          style: GoogleFonts.gasoekOne(
-                            color: Colors.deepPurple,
-                            textStyle: TextStyle(
-                              fontSize: 20,
-                            ),
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                                builder: (context) => loginPage()));
+                      },
+                      child: Text(
+                        "Login!",
+                        style: GoogleFonts.gasoekOne(
+                          color: Colors.deepPurple,
+                          textStyle: const TextStyle(
+                            fontSize: 15,
                           ),
                         ),
+                      ),
                     ),
                   ],
                 ),
@@ -138,12 +180,5 @@ class _accountLogin extends State<accountHandling> {
         ],
       ),
     );
-  }
-}
-
-class _accountCreate extends State<accountHandling> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold();
   }
 }

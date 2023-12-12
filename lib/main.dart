@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:group_d_final/Controllers/controller.dart';
+import 'package:group_d_final/views/WelcomePage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:group_d_final/firebase_options.dart';
 
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
                 useMaterial3: true,
                 colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               ),
-              home: const CSBookController(),
+              home: const welcomePage(),
             );
           }
           Widget loading= const MaterialApp();

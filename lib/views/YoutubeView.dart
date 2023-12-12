@@ -18,7 +18,7 @@ class YoutubeView extends StatelessWidget {
   final List<VideoInfo> videoInfos;
   final void Function(List<VideoInfo> videoInfos) onWatchYoutube;
 
-  YoutubeView({
+  const YoutubeView({super.key, 
     required this.videoInfos,
     required this.onWatchYoutube,
   });
@@ -189,7 +189,7 @@ class YoutubeView extends StatelessWidget {
                       ],
                     )
                 ),
-                Container(
+                SizedBox(
                   height: 600,
                   width: MediaQuery.of(context).size.width,
                   child: ListView.builder(
@@ -261,7 +261,7 @@ class YoutubeView extends StatelessWidget {
 class YoutubePlayerScreen extends StatefulWidget {
   final String videoUrl;
 
-  YoutubePlayerScreen({required this.videoUrl});
+  const YoutubePlayerScreen({super.key, required this.videoUrl});
 
   @override
   _YoutubePlayerScreenState createState() => _YoutubePlayerScreenState();
@@ -275,7 +275,7 @@ class _YoutubePlayerScreenState extends State<YoutubePlayerScreen> {
     super.initState();
     _controller = YoutubePlayerController(
       initialVideoId: YoutubePlayer.convertUrlToId(widget.videoUrl) ?? '',
-      flags: YoutubePlayerFlags(
+      flags: const YoutubePlayerFlags(
         autoPlay: true,
         mute: false,
       ),
@@ -293,7 +293,7 @@ class _YoutubePlayerScreenState extends State<YoutubePlayerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _controller.value.isFullScreen ? null : AppBar(
-        title: Text('Video Player'),
+        title: const Text('Video Player'),
       ),
       body: Center(
         child: YoutubePlayer(

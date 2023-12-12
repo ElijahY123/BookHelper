@@ -48,10 +48,10 @@ class Calendar extends StatelessWidget {
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                    actionsOverflowAlignment: OverflowBarAlignment.center,
-                    title: Text("Add Event"),
-                    actions: [
-                      ElevatedButton(
+                      actionsOverflowAlignment: OverflowBarAlignment.center,
+                      title: Text("Add Event"),
+                      actions: [
+                        ElevatedButton(
                           onPressed: () {
                             showDialog(
                                 context: context,
@@ -59,93 +59,93 @@ class Calendar extends StatelessWidget {
                                   return AlertDialog(
                                     title: Text("Book for class"),
                                     content: Padding(
-                                    padding:  EdgeInsets.all(8),
-                                    child: DropdownSearch<String> (
-                                      items: getBookList(context),
-                                      selectedItem: selectedItem,
-                                      popupProps: PopupPropsMultiSelection.menu(
-                                        showSelectedItems: true,
-                                        showSearchBox: true,
-                                      ),
-                                      onChanged: (string) {
-                                        selectedItem = string!;
-                                      }
-                                    )
-                                  ),
-                                  actions: [
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        if (events[today] != null) {
-                                          events[today]?.add(Event("Bring ${selectedItem} to class"));
-                                        }
-                                        events.putIfAbsent(today, () => [Event("Bring ${selectedItem} to class")]);
-                                        /*
+                                        padding:  EdgeInsets.all(8),
+                                        child: DropdownSearch<String> (
+                                            items: getBookList(context),
+                                            selectedItem: selectedItem,
+                                            popupProps: PopupPropsMultiSelection.menu(
+                                              showSelectedItems: true,
+                                              showSearchBox: true,
+                                            ),
+                                            onChanged: (string) {
+                                              selectedItem = string!;
+                                            }
+                                        )
+                                    ),
+                                    actions: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          if (events[today] != null) {
+                                            events[today]?.add(Event("Bring ${selectedItem} to class"));
+                                          }
+                                          events.putIfAbsent(today, () => [Event("Bring ${selectedItem} to class")]);
+                                          /*
                                         events.addAll({
                                           today: [Event("Bring ${selectedItem} to class")]
                                         });
                                          */
-                                        Navigator.of(context).pop();
-                                        selectedEvents.value = getEventsForDay(today);
-                                        onDaySelected(today, today);
-                                      },
-                                      child: Text("Submit"),
-                                    ),
-                                  ],
+                                          Navigator.of(context).pop();
+                                          selectedEvents.value = getEventsForDay(today);
+                                          onDaySelected(today, today);
+                                        },
+                                        child: Text("Submit"),
+                                      ),
+                                    ],
                                   );
                                 }
                             );
                           },
                           child: Text("Book for Class"),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: Text("Book Delivery"),
-                                  content: Padding(
-                                    padding:  EdgeInsets.all(8),
-                                    child: DropdownSearch<String> (
-                                      items: getBookList(context),
-                                      selectedItem: selectedItem,
-                                      popupProps: PopupPropsMultiSelection.menu(
-                                        showSelectedItems: true,
-                                        showSearchBox: true,
-                                      ),
-                                      onChanged: (string) {
-                                        selectedItem = string!;
-                                      }
-                                    )
-                                  ),
-                                  actions: [
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        print("Submitted");
-                                        if (events[today] != null) {
-                                          events[today]?.add(Event("${selectedItem} is being delivered"));
-                                        }
-                                        events.putIfAbsent(today, () => [Event("${selectedItem} is being delivered")]);
-                                        /*
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text("Book Delivery"),
+                                    content: Padding(
+                                        padding:  EdgeInsets.all(8),
+                                        child: DropdownSearch<String> (
+                                            items: getBookList(context),
+                                            selectedItem: selectedItem,
+                                            popupProps: PopupPropsMultiSelection.menu(
+                                              showSelectedItems: true,
+                                              showSearchBox: true,
+                                            ),
+                                            onChanged: (string) {
+                                              selectedItem = string!;
+                                            }
+                                        )
+                                    ),
+                                    actions: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          print("Submitted");
+                                          if (events[today] != null) {
+                                            events[today]?.add(Event("${selectedItem} is being delivered"));
+                                          }
+                                          events.putIfAbsent(today, () => [Event("${selectedItem} is being delivered")]);
+                                          /*
                                         events.addAll({
                                           today: [Event("${selectedItem} is being delivered")]
                                         });
 
                                          */
-                                        Navigator.of(context).pop();
-                                        selectedEvents.value = getEventsForDay(today);
-                                        onDaySelected(today, today);
-                                      },
-                                      child: Text("Submit"),
-                                    ),
-                                  ],
-                                );
-                              }
-                          );
-                        },
-                        child: Text("Book Delivery"),
-                      ),
-                      ElevatedButton(
+                                          Navigator.of(context).pop();
+                                          selectedEvents.value = getEventsForDay(today);
+                                          onDaySelected(today, today);
+                                        },
+                                        child: Text("Submit"),
+                                      ),
+                                    ],
+                                  );
+                                }
+                            );
+                          },
+                          child: Text("Book Delivery"),
+                        ),
+                        ElevatedButton(
                           onPressed: () {
                             showDialog(
                                 context: context,
@@ -190,40 +190,40 @@ class Calendar extends StatelessWidget {
                             );
                           },
                           child: Text("Book Rental"),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: Text("Custom Event"),
-                                  content: Padding(
-                                    padding:  EdgeInsets.all(8),
-                                    child: TextField(
-                                      controller: eventController,
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text("Custom Event"),
+                                    content: Padding(
+                                      padding:  EdgeInsets.all(8),
+                                      child: TextField(
+                                        controller: eventController,
+                                      ),
                                     ),
-                                  ),
-                                  actions: [
-                                    ElevatedButton(
-                                        onPressed: () {
-                                          events.addAll({
-                                            today: [Event(eventController.text)]
-                                          });
-                                          print(events);
-                                          Navigator.of(context).pop();
-                                          selectedEvents.value = getEventsForDay(today);
-                                        },
-                                        child: Text("Submit")
-                                    )
-                                  ],
-                                );
-                              }
-                          );
-                        },
-                        child: Text("Custom Event"),
-                      ),
-                    ]
+                                    actions: [
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            events.addAll({
+                                              today: [Event(eventController.text)]
+                                            });
+                                            print(events);
+                                            Navigator.of(context).pop();
+                                            selectedEvents.value = getEventsForDay(today);
+                                          },
+                                          child: Text("Submit")
+                                      )
+                                    ],
+                                  );
+                                }
+                            );
+                          },
+                          child: Text("Custom Event"),
+                        ),
+                      ]
                     /*scrollable: true,
                     title: Text("Event Name"),
                     content: Padding(
@@ -282,7 +282,7 @@ class Calendar extends StatelessWidget {
                               ),
                               child: ListTile(
                                 textColor: Colors.white70,
-                                  title: Text('${value[index].title}'),
+                                title: Text('${value[index].title}'),
                               )
                           );
                         });

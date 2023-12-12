@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:group_d_final/Models/model.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:group_d_final/views/StartupPage.dart';
-import 'package:group_d_final/views/WelcomePage.dart';
+import 'package:group_d_final/views/Profile.dart';
 import 'package:group_d_final/views/audioBook.dart';
 import 'package:group_d_final/views/Calendar.dart';
 import '../views/CSV_View.dart';
@@ -22,6 +21,7 @@ class _CSBookControllerState extends State<CSBookController> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final CalendarModel _calendarModel = CalendarModel();
   AudioBooksModel booksModel = AudioBooksModel();
+  AccountModel accountModel = AccountModel();
 
   // Navigation Drawer
 
@@ -59,7 +59,7 @@ class _CSBookControllerState extends State<CSBookController> {
  */
 
   onDropDownChanged(String? item) {
-    (item) => setState(() => _calendarModel.selectedItem = item);
+        (item) => setState(() => _calendarModel.selectedItem = item);
   }
 
   SelectedPage pageSelected = SelectedPage();
@@ -69,20 +69,20 @@ class _CSBookControllerState extends State<CSBookController> {
     Widget? page;
     switch (pageSelected.getSelectedIndex()) {
       case 0:
-        page = welcomePage();
+        page = Profile(
+            username: accountModel.userName,
+            password: accountModel.passWord,
+        );
         break;
       case 1:
         page = const CSV_View();
         break;
-      case 2:
-        page = const welcomePage();
-        break;
+
       case 3:
         page = YoutubeView(
           videoInfos: VideoRepository.videoInfos,
           onWatchYoutube: navigateToYoutubeView,
         );
-        page = welcomePage();
         break;
       case 4:
         page = AudioBook(
@@ -142,16 +142,12 @@ class _CSBookControllerState extends State<CSBookController> {
                       IconButton(
                           onPressed: closeRail, icon: const Icon(Icons.close)),
                       const NavigationDrawerDestination(
-                        icon: Icon(Icons.home),
-                        label: Text('Home Page'),
+                        icon: Icon(Icons.person),
+                        label: Text('Profile'),
                       ),
                       const NavigationDrawerDestination(
                         icon: Icon(Icons.table_chart),
                         label: Text('CSV Display'),
-                      ),
-                      const NavigationDrawerDestination(
-                        icon: Icon(Icons.home),
-                        label: Text('Login'),
                       ),
                       const NavigationDrawerDestination(
                         icon: Icon(Icons.play_arrow),
