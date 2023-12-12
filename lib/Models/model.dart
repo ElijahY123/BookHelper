@@ -1,6 +1,8 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:csv/csv.dart';
 import 'dart:typed_data';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:group_d_final/Controllers/controller.dart';
 
 // Selected Page Data
 import 'package:flutter/cupertino.dart';
@@ -83,8 +85,6 @@ class CalendarModel {
   Map<DateTime, List<Event>> events = {};
   TextEditingController eventController = TextEditingController();
   late ValueNotifier<List<Event>> selectedEvents = ValueNotifier(getEventsForDay(today));
-  TextEditingController otherController = TextEditingController();
-  TextEditingController classController = TextEditingController();
   String selectedItem = "";
   List<String> bookList = [];
 
@@ -98,7 +98,7 @@ class CalendarModel {
       "assets/Amazon_Books_Data.csv",
     );
     csvFile = CsvToListConverter().convert(result, eol: "\n").toList();
-    for (int i = 0; i < csvFile!.length; ++i) {
+    for (int i = 1; i < csvFile!.length; ++i) {
       if (csvFile?[i][0] != null)  {
         bookList.add(csvFile?[i][0]);
       }
@@ -116,10 +116,97 @@ class CalendarModel {
   }
 
   void onDaySelected(DateTime day, DateTime focusedDay) {
-    print(bookList);
     if (!isSameDay(today, day)) {
       today = day;
       selectedEvents.value = getEventsForDay(day);
     }
   }
+}
+
+class AccountModel {
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmController = TextEditingController();
+
+  String get userName => usernameController.text.trim();
+  String get passWord => passwordController.text.trim();
+  String get confirmPassword => confirmController.text.trim();
+
+  final accountsRef = FirebaseFirestore.instance.collection('Accounts');
+
+  String error = " ";
+
+  /**
+   * Checks the Firestore Database for a Username and Password created.
+   * @author: Elijah Yeboah
+   * @param: Context - Navigates to the functions of the app if successful.
+   * @return: none
+   */
+  void retrieveLoginInfo(BuildContext context) async {
+    if (userName.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        backgroundColor: Colors.deepPurple,
+        content: Text("No username has been entered"),
+      ));
+    } else if (passWord.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        backgroundColor: Colors.deepPurple,
+        content: Text("No password has been entered"),
+      ));
+    } else {
+      accountsRef.get().then((QuerySnapshot snapshot) {
+        snapshot.docs.forEach((DocumentSnapshot doc) {
+          accountsRef.doc(doc.id).get().then((DocumentSnapshot doc) {
+            try {
+              if (userName == doc['Username'] && passWord == doc['Password']) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CSBookController()));
+              } else if (userName == doc['Username'] &&
+                  passWord != doc['Password']) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  backgroundColor: Colors.deepPurple,
+                  content: Text("Invalid Password"),
+                ));
+              } else if (userName != doc['Username'] &&
+                  passWord == doc['Password']) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  backgroundColor: Colors.deepPurple,
+                  content: Text("Invalid Username"),
+                ));
+              }
+            } catch (e) {
+              String error = " ";
+              if (e.toString() ==
+                  "RangeError (index): Invalid value: Valid value range is empty: 0") {
+                error = "Invalid Username";
+              } else {
+                error = "Invalid Password";
+              }
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                backgroundColor: Colors.deepPurple,
+                content: Text(error),
+              ));
+            }
+          });
+        });
+      });
+    }
+  }
+
+  /**
+   * Adds username and password to collection Accounts on Firebase.
+   * @author: Elijah Yeboah
+   * @param: Username - Takes in a string username.
+   * @param: Password - Takes in a string password.
+   * @return: none
+   */
+  void addAccount(String userName, String passWord) {
+    FirebaseFirestore.instance.collection('Accounts').add({
+      'Username': userName,
+      'Password': passWord,
+    });
+  }
+
 }

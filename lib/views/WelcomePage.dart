@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:group_d_final/views/StartupPage.dart';
+import 'package:group_d_final/views/LoginPage.dart';
 
 class welcomePage extends StatefulWidget {
   const welcomePage({super.key});
@@ -28,7 +28,7 @@ class _welcomePageState extends State<welcomePage> {
           Text(
             "CS Book Helper",
             style: GoogleFonts.shizuru(
-              textStyle: TextStyle(
+              textStyle: const TextStyle(
                 fontSize: 50,
                 color: Colors.white,
               ),
@@ -39,7 +39,7 @@ class _welcomePageState extends State<welcomePage> {
             onTap: () {
               Navigator.of(context).push(
                   MaterialPageRoute(
-                      builder: (context) => accountHandling()));
+                      builder: (context) => loginPage()));
             },
             child: Container(
               height: 100,
@@ -51,8 +51,8 @@ class _welcomePageState extends State<welcomePage> {
               child: Center(
                 child: Text(
                   "Get Started",
-                  style: GoogleFonts.gasoekOne(
-                    textStyle: TextStyle(
+                  style: GoogleFonts.shizuru(
+                    textStyle: const TextStyle(
                       fontSize: 50,
                       color: Colors.white,
                     ),
