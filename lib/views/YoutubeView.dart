@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:collection/collection.dart'; // Add this for groupBy extension
 
 class VideoInfo {
   final String topic;
