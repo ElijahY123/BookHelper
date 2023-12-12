@@ -1,7 +1,14 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:csv/csv.dart';
 import 'dart:typed_data';
 
 // Selected Page Data
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:group_d_final/Models/Event.dart';
+import "package:table_calendar/table_calendar.dart";
+
 
 class SelectedPage {
 
@@ -67,4 +74,52 @@ class AudioBooksModel {
     currentPosition = value;
   }
 
+}
+
+class CalendarModel {
+  DateTime today = DateTime.now();
+  DateTime firstDay = DateTime.now().subtract(Duration(days: 365));
+  DateTime lastDay = DateTime.now().add(Duration(days: 1826));
+  Map<DateTime, List<Event>> events = {};
+  TextEditingController eventController = TextEditingController();
+  late ValueNotifier<List<Event>> selectedEvents = ValueNotifier(getEventsForDay(today));
+  TextEditingController otherController = TextEditingController();
+  TextEditingController classController = TextEditingController();
+  String selectedItem = "";
+  List<String> bookList = [];
+
+  List<List<dynamic>>? csvFile = [];
+  late List<dynamic> searchReturn;
+  late String IsbnNumber;
+  Uri _url = Uri.parse('https://www.kaggle.com/uzair01');
+
+  void processCSV(context) async {
+    var result = await DefaultAssetBundle.of(context).loadString(
+      "assets/Amazon_Books_Data.csv",
+    );
+    csvFile = CsvToListConverter().convert(result, eol: "\n").toList();
+    for (int i = 0; i < csvFile!.length; ++i) {
+      if (csvFile?[i][0] != null)  {
+        bookList.add(csvFile?[i][0]);
+      }
+    }
+  }
+
+  List<String> getBookList(context) {
+    bookList.clear();
+    processCSV(context);
+    return bookList;
+  }
+
+  List<Event> getEventsForDay(DateTime day) {
+    return events[day] ?? [];
+  }
+
+  void onDaySelected(DateTime day, DateTime focusedDay) {
+    print(bookList);
+    if (!isSameDay(today, day)) {
+      today = day;
+      selectedEvents.value = getEventsForDay(day);
+    }
+  }
 }

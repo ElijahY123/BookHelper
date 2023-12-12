@@ -15,7 +15,7 @@ class _CSV_ViewState extends State<CSV_View>{
   List<List<dynamic>>? csvFile;
   late List<dynamic> searchReturn;
   late String IsbnNumber;
-  Uri _url = Uri.parse('https://www.kaggle.com/uzair01');
+  final Uri _url = Uri.parse('https://www.kaggle.com/uzair01');
 
   Future<List<List<dynamic>>> processCSV() async {
     var result = await DefaultAssetBundle.of(context).loadString(

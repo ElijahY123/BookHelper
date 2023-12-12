@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:group_d_final/views/StartupPage.dart';
 import 'package:group_d_final/views/WelcomePage.dart';
 import 'package:group_d_final/views/audioBook.dart';
+import 'package:group_d_final/views/Calendar.dart';
 import '../views/CSV_View.dart';
 import '../Models/VideoRepository.dart';
 import '../views/YoutubeView.dart';
@@ -19,6 +20,7 @@ class CSBookController extends StatefulWidget {
 
 class _CSBookControllerState extends State<CSBookController> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final CalendarModel _calendarModel = CalendarModel();
   AudioBooksModel booksModel = AudioBooksModel();
 
   // Navigation Drawer
@@ -41,6 +43,24 @@ class _CSBookControllerState extends State<CSBookController> {
     );
   }
 
+  // Calendar
+  void onDaySelected(DateTime day, DateTime focusedDay) {
+    setState(() {
+      _calendarModel.onDaySelected(day, focusedDay);
+    });
+  }
+/*
+  void processCSV(context) {
+    setState(() {
+      processCSV(context);
+    });
+  }
+ */
+
+  onDropDownChanged(String? item) {
+    (item) => setState(() => _calendarModel.selectedItem = item);
+  }
+
   SelectedPage pageSelected = SelectedPage();
 
   @override
@@ -48,6 +68,7 @@ class _CSBookControllerState extends State<CSBookController> {
     Widget? page;
     switch (pageSelected.getSelectedIndex()) {
       case 0:
+        page = welcomePage();
         break;
       case 1:
         page = const CSV_View();
@@ -60,12 +81,32 @@ class _CSBookControllerState extends State<CSBookController> {
           videoInfos: VideoRepository.videoInfos,
           onWatchYoutube: navigateToYoutubeView,
         );
+        page = welcomePage();
         break;
       case 4:
         page = AudioBook(
           books: booksModel.books,
           player: booksModel.player,
         );
+      case 5:
+        page = Calendar(
+          today: _calendarModel.today,
+          firstDay: _calendarModel.firstDay,
+          lastDay: _calendarModel.lastDay,
+          onDaySelected: onDaySelected,
+          events: _calendarModel.events,
+          eventController: _calendarModel.eventController,
+          selectedEvents: _calendarModel.selectedEvents,
+          getEventsForDay: _calendarModel.getEventsForDay,
+          otherController: _calendarModel.otherController,
+          classController: _calendarModel.classController,
+          selectedItem: _calendarModel.selectedItem,
+          bookList: _calendarModel.bookList,
+          onDropDownChanged: onDropDownChanged,
+          processCSV: _calendarModel.processCSV,
+          getBookList: _calendarModel.getBookList,
+        );
+        break;
       default:
         throw UnimplementedError('No page for selected page');
     }
@@ -118,10 +159,15 @@ class _CSBookControllerState extends State<CSBookController> {
                         label: Text("Video Guides"),
                       ),
                       const NavigationDrawerDestination(
-                        icon: Icon(Icons.info_outline),
+                        icon: Icon(Icons.headphones),
                         label: Text('Audio Books'),
                       ),
-                      /*NavigationDrawerDestination(
+                      const NavigationDrawerDestination(
+                        icon: Icon(Icons.calendar_month_outlined),
+                        label: Text('Calendar'),
+                      ),
+                      /*
+                      NavigationDrawerDestination(
                         icon: Icon(Icons.fitness_center),
                         label: Text("Start Workout"),
                       ),
@@ -132,7 +178,8 @@ class _CSBookControllerState extends State<CSBookController> {
                       NavigationDrawerDestination(
                         icon: Icon(Icons.message_outlined),
                         label: Text("Announcements"),
-                      ),*/
+                      ),
+                       */
                     ], // onDestinationSelected
                   ),
                 ),

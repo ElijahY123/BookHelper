@@ -23,6 +23,10 @@ class VideoRepository {
         videoName: 'How I Would Learn to Code',
         videoUrl: 'https://www.youtube.com/watch?v=k9WqpQp8VSU&ab_channel=NamanhKapur'),
     VideoInfo(
+        topic: 'Useful Info',
+        videoName: 'Tips for Surviving CS',
+        videoUrl: 'https://www.youtube.com/watch?v=l8QSG4rTnjg&ab_channel=TechWithTim'),
+    VideoInfo(
         topic: 'Books to Read',
         videoName: 'Must-Read Software Engineering Books',
         videoUrl: 'https://www.youtube.com/watch?v=4skMTET0yuU&ab_channel=EngineeringwithUtsav'),

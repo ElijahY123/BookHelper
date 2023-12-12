@@ -27,194 +27,100 @@ class YoutubeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Stack(
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
-                  height: 100,
-                  decoration: const BoxDecoration(
-                      color: Colors.blueAccent,
-                      gradient: LinearGradient(
+      body: SingleChildScrollView( // Enable scrolling
+        child: Column(
+          children: [
+            Container(
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
+                height: 100,
+                decoration: const BoxDecoration(
+                    color: Colors.blueAccent,
+                    gradient: LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
-                        colors: [
-                          Colors.lightBlueAccent,
-                          Colors.indigo
-                        ]
-                      )
-                      /*image: DecorationImage(
-                          image: AssetImage(
-                              "assets/Images/videoGuidesBanner.jpg"
-                                  //Citation: Barysevich, I. (2022). Remote Work social media banner. Freelancer Working Distant on Pc from Home linkedin cover, Self-employed Occupation header. Cartoon Flat Vector Illustration. Retrieved from https://www.vecteezy.com/vector-art/12720076-remote-work-social-media-banner-freelancer-working-distant-on-pc-from-home-linkedin-cover-self-employed-occupation-header-cartoon-flat-vector-illustration
-                          ),
-                          fit: BoxFit.fill
-                      )*/
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Video Guides",
-                      style: GoogleFonts.aBeeZee(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 50,
-                      ), // GoogleFonts
-                    ),
-                  )
-              ),
-              const SizedBox(
-                height: 42,
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.transparent
+                        colors: [Colors.lightBlueAccent, Colors.indigo]
+                    )
                 ),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => VideoPage(videoInfos: videoInfos, onWatchYoutube: onWatchYoutube, whichButton: 'Study Habits'))
-                  );
-                },
-                child: Container(
-                  height: 150,
-                  width: 400,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    color: Colors.green,
-                    image: DecorationImage(
-                        image: AssetImage(
-                          "assets/Images/studyingTips.jpg",
-                        ),
-                        fit: BoxFit.fill
+                child: Center(
+                  child: Text(
+                    "Video Guides",
+                    style: GoogleFonts.aBeeZee(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 50,
                     ),
                   ),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.transparent,
-                    ),
-                    child: Container(
-                      margin: const EdgeInsets.only(
-                          left: 10, top: 110, right: 160),
-                      child: Text(
-                        "Study Habits",
-                        //Citation: Hu, A. (2023). Artwork: How I Wish Studying Felt Like. Retrieved from https://www.girlspring.com/how-i-wish-studying-felt-like/
-                        style: GoogleFonts.aBeeZee(
-                          color: Colors.white,
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 42,
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.transparent
-                ),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => VideoPage(videoInfos: videoInfos, onWatchYoutube: onWatchYoutube, whichButton: 'Useful Info'))
-                  );
-                },
-                child: Container(
-                  height: 150,
-                  width: 400,
-                  decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      color: Colors.green,
-                      image: DecorationImage(
-                          image: AssetImage(
-                              "assets/Images/usefulInfo.jpg"
-                                  //Citation: HD Computer Science Backgrounds Images,Cool Pictures Free Download. (n.d.). Retrieved from https://lovepik.com/images/backgrounds-computer-science.html
-                          ),
-                          fit: BoxFit.fill
-                      )
-                  ),
-                  child: Container(
-                    margin: const EdgeInsets.only(
-                        left: 10, top: 110, right: 180),
-                    child: Text(
-                      "Useful Info",
-                      style: GoogleFonts.aBeeZee(
-                        color: Colors.white,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 42,
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.transparent
-                ),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => VideoPage(videoInfos: videoInfos, onWatchYoutube: onWatchYoutube, whichButton: 'Books to Read'))
-                  );
-                },
-                child: Container(
-                  height: 150,
-                  width: 400,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    color: Colors.green,
-                    image: DecorationImage(
-                        image: AssetImage(
-                            "assets/Images/booksToRead.jpg"
-                                //Citation: Library, bookstore banner design. Education aesthetic, elegant study background. Pile of books with paper, glasses and pencil flat cartoon illustration. Stock Vector. (n.d.). Retrieved from https://stock.adobe.com/images/library-bookstore-banner-design-education-aesthetic-elegant-study-background-pile-of-books-with-paper-glasses-and-pencil-flat-cartoon-illustration/422506759
-                        ),
-                        fit: BoxFit.fill
-                    ),
-                  ),
-                  child: Container(
-                    margin: const EdgeInsets.only(
-                        left: 10, top: 110, right: 180),
-                    child: Text(
-                      "Books to Read",
-                      style: GoogleFonts.aBeeZee(
-                        color: Colors.white,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 75,
-              ),
-              const Text(
-                "** Tap on a Box to View Videos **",
-                style: TextStyle(
-                  fontSize: 15,
+                )
+            ),
+            const SizedBox(height: 42),
+            _buildElevatedButton(
+                context, 'Study Habits', 'assets/Images/studyingTips.jpg'),
+            const SizedBox(height: 42),
+            _buildElevatedButton(
+                context, 'Useful Info', 'assets/Images/usefulInfo.jpg'),
+            const SizedBox(height: 42),
+            _buildElevatedButton(
+                context, 'Books to Read', 'assets/Images/booksToRead.jpg'),
+            const SizedBox(height: 15),
+            const Text(
+              "** Tap on a Box to View Videos **",
+              style: TextStyle(fontSize: 15,
                   color: Colors.white,
-                  fontWeight: FontWeight.bold
-                ),
-              )
-            ],
-          )
-        ],
+                  fontWeight: FontWeight.bold),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildElevatedButton(BuildContext context, String topic,
+      String imagePath) {
+    double screenWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
+
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent),
+      onPressed: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>
+                VideoPage(videoInfos: videoInfos,
+                    onWatchYoutube: onWatchYoutube,
+                    whichButton: topic))
+        );
+      },
+      child: Container(
+        height: 150,
+        width: screenWidth * 0.8, // Adjusted width to 80% of screen width
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          color: Colors.green,
+          image: DecorationImage(
+              image: AssetImage(imagePath), fit: BoxFit.fill),
+        ),
+        child: Container(
+          margin: const EdgeInsets.only(left: 10, top: 110, right: 10),
+          // Adjusted right margin
+          child: Text(
+            topic,
+            style: GoogleFonts.aBeeZee(
+              color: Colors.white,
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
       ),
     );
   }
 }
-
-class VideoPage extends StatelessWidget {
+  class VideoPage extends StatelessWidget {
 
   final List<VideoInfo> videoInfos;
   final void Function(List<VideoInfo> videoInfos) onWatchYoutube;
@@ -342,66 +248,6 @@ class VideoPage extends StatelessWidget {
       );
   }
 }
-
-  /*@override
-  Widget build(BuildContext context) {
-    // Group videos by topic
-    var groupedVideos = groupBy(videoInfos, (VideoInfo video) => video.topic);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Video Guides',
-          style: GoogleFonts.poppins(
-            fontWeight: FontWeight.bold,
-            fontSize: 26,
-          ),
-        ),
-        backgroundColor: Colors.red,
-      ),
-      body: Container(
-        color: Colors.black12,
-        child: ListView(
-          children: groupedVideos.entries.map((entry) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Topic Banner
-                Container(
-                  padding: EdgeInsets.all(10),
-                  color: Colors.blueGrey, // Customize banner color
-                  child: Text(
-                    entry.key,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-                // Video List
-                ...entry.value.map((videoInfo) => Card(
-                  elevation: 5,
-                  margin: EdgeInsets.all(10),
-                  child: ListTile(
-                    title: Text(
-                      '${videoInfo.videoName}',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                    onTap: () => _playYoutubeVideo(context, videoInfo.videoUrl),
-                  ),
-                )),
-              ],
-            );
-          }).toList(),
-        ),
-      ),
-    );
-  }*/
 
   void _playYoutubeVideo(BuildContext context, String videoUrl) {
     Navigator.push(
