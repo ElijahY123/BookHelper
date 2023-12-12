@@ -83,8 +83,6 @@ class CalendarModel {
   Map<DateTime, List<Event>> events = {};
   TextEditingController eventController = TextEditingController();
   late ValueNotifier<List<Event>> selectedEvents = ValueNotifier(getEventsForDay(today));
-  TextEditingController otherController = TextEditingController();
-  TextEditingController classController = TextEditingController();
   String selectedItem = "";
   List<String> bookList = [];
 
@@ -98,7 +96,7 @@ class CalendarModel {
       "assets/Amazon_Books_Data.csv",
     );
     csvFile = CsvToListConverter().convert(result, eol: "\n").toList();
-    for (int i = 0; i < csvFile!.length; ++i) {
+    for (int i = 1; i < csvFile!.length; ++i) {
       if (csvFile?[i][0] != null)  {
         bookList.add(csvFile?[i][0]);
       }
@@ -116,7 +114,6 @@ class CalendarModel {
   }
 
   void onDaySelected(DateTime day, DateTime focusedDay) {
-    print(bookList);
     if (!isSameDay(today, day)) {
       today = day;
       selectedEvents.value = getEventsForDay(day);
