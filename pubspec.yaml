@@ -42,6 +42,10 @@ dependencies:
   firebase_database: ^10.3.6
   firebase_core_platform_interface: ^5.0.0
   cloud_firestore: ^4.13.3
+  table_calendar: ^3.0.9
+  audioplayers: ^5.2.1
+  youtube_player_flutter: ^8.1.2
+  url_launcher: ^6.2.2
 
 dev_dependencies:
   flutter_test:
@@ -71,7 +75,19 @@ flutter:
   #   - images/a_dot_ham.jpeg
 
   assets:
-    - assets/images/
+    - assets/
+    - assets/Images/audioBanner.jpg
+    - assets/Images/pythonCrashCourse.jpg
+    - assets/Images/pragmaticProgrammer.jpg
+    - assets/Images/introToAlgo.jpg
+    - assets/Images/grokking.jpg
+    - assets/Images/CProgLang.jpg
+    - assets/Images/Recording.mp3
+    - assets/Images/PythonCrashCourse.mp3
+    - assets/Images/booksToRead.jpg
+    - assets/Images/studyingTips.jpg
+    - assets/Images/usefulInfo.jpg
+    - assets/Images/videoGuidesBanner.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
