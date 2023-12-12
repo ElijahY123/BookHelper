@@ -42,7 +42,7 @@ class _accountLogin extends State<accountHandling> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 200),
+            padding: EdgeInsets.only(top: 150),
             child: Container(
               height: double.infinity,
               width: double.infinity,
@@ -53,12 +53,85 @@ class _accountLogin extends State<accountHandling> {
                 ),
                 color: Colors.white,
               ),
-              child: Column(
-                children: [
-                  TextField(
-
-                  ),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 15,
+                  right: 15,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextField(
+                      keyboardAppearance: Brightness.dark,
+                      decoration: InputDecoration(
+                        label: Text(
+                          "Username",
+                          style: TextStyle(
+                            color: Colors.deepPurple,
+                          ),
+                        ),
+                      ),
+                    ),
+                    TextField(
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        label: Text(
+                          "Password",
+                          style: TextStyle(
+                            color: Colors.deepPurple,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 70,),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        height: 100,
+                        width: 300,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          gradient: LinearGradient(
+                            colors: [
+                              Color(0xff8d76d3),
+                              Color(0xff5c53cb),
+                              Color(0xff5d40ce),
+                              Color(0xff4100E0),
+                            ],
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                              "Login",
+                            style: GoogleFonts.gasoekOne(
+                              color: Colors.white,
+                              textStyle: TextStyle(
+                                fontSize: 40,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 25,),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => Container()));
+                        },
+                        child: Text(
+                          "Join Now!",
+                          style: GoogleFonts.gasoekOne(
+                            color: Colors.deepPurple,
+                            textStyle: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
