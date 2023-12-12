@@ -12,8 +12,6 @@ class Calendar extends StatelessWidget {
   final TextEditingController eventController;
   final ValueNotifier<List<Event>> selectedEvents;
   final List<Event> Function(DateTime day) getEventsForDay;
-  final TextEditingController otherController;
-  final TextEditingController classController;
   String selectedItem;
   final List<String> bookList;
   final Function(String?) onDropDownChanged;
@@ -30,8 +28,6 @@ class Calendar extends StatelessWidget {
     required this.eventController,
     required this.selectedEvents,
     required this.getEventsForDay,
-    required this.otherController,
-    required this.classController,
     required this.selectedItem,
     required this.bookList,
     required this.onDropDownChanged,
@@ -80,11 +76,18 @@ class Calendar extends StatelessWidget {
                                     ElevatedButton(
                                       onPressed: () {
                                         print("Submitted");
+                                        if (events[today] != null) {
+                                          events[today]?.add(Event("Bring ${selectedItem} to class"));
+                                        }
+                                        events.putIfAbsent(today, () => [Event("Bring ${selectedItem} to class")]);
+                                        /*
                                         events.addAll({
                                           today: [Event("Bring ${selectedItem} to class")]
                                         });
+                                         */
                                         Navigator.of(context).pop();
                                         selectedEvents.value = getEventsForDay(today);
+                                        onDaySelected(today, today);
                                       },
                                       child: Text("Submit"),
                                     ),
@@ -120,11 +123,19 @@ class Calendar extends StatelessWidget {
                                     ElevatedButton(
                                       onPressed: () {
                                         print("Submitted");
+                                        if (events[today] != null) {
+                                          events[today]?.add(Event("${selectedItem} is being delivered"));
+                                        }
+                                        events.putIfAbsent(today, () => [Event("${selectedItem} is being delivered")]);
+                                        /*
                                         events.addAll({
                                           today: [Event("${selectedItem} is being delivered")]
                                         });
+
+                                         */
                                         Navigator.of(context).pop();
                                         selectedEvents.value = getEventsForDay(today);
+                                        onDaySelected(today, today);
                                       },
                                       child: Text("Submit"),
                                     ),
@@ -159,12 +170,18 @@ class Calendar extends StatelessWidget {
                                     actions: [
                                       ElevatedButton(
                                         onPressed: () {
-                                          print("Submitted");
+                                          if (events[today] != null) {
+                                            events[today]?.add(Event("${selectedItem} is due to be returned"));
+                                          }
+                                          events.putIfAbsent(today, () => [Event("${selectedItem} is due to be returned")]);
+                                          /*
                                           events.addAll({
                                             today: [Event("${selectedItem} is due to be returned")]
                                           });
+                                           */
                                           Navigator.of(context).pop();
                                           selectedEvents.value = getEventsForDay(today);
+                                          onDaySelected(today, today);
                                         },
                                         child: Text("Submit"),
                                       ),
