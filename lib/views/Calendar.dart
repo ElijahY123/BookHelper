@@ -75,7 +75,6 @@ class Calendar extends StatelessWidget {
                                   actions: [
                                     ElevatedButton(
                                       onPressed: () {
-                                        print("Submitted");
                                         if (events[today] != null) {
                                           events[today]?.add(Event("Bring ${selectedItem} to class"));
                                         }
