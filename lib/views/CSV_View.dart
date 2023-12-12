@@ -15,6 +15,18 @@ class _CSV_ViewState extends State<CSV_View>{
   List<List<dynamic>>? csvFile;
   late List<dynamic> searchReturn;
   late String IsbnNumber;
+  late String bookTitle;
+  late String bookDescription;
+  late String bookAuthor;
+  late String bookISBN10;
+  late String bookISBN13;
+  late String bookPublishDate;
+  late String bookEdition;
+  late String bookBestSeller;
+  late String bookTopRated;
+  late String bookRating;
+  late String bookReviewCount;
+  late String bookPrice;
   final Uri _url = Uri.parse('https://www.kaggle.com/uzair01');
 
   Future<List<List<dynamic>>> processCSV() async {
@@ -46,12 +58,37 @@ class _CSV_ViewState extends State<CSV_View>{
                   onSubmitted: (String value) async{
                     IsbnNumber = value;
                     searchReturn = searchCSV(csvFile, IsbnNumber);
+                    bookTitle = searchReturn[0];
+                    bookDescription = searchReturn[1];
+                    bookAuthor = searchReturn[2];
+                    bookISBN10 = searchReturn[3];
+                    bookISBN13 = searchReturn[4];
+                    bookPublishDate = searchReturn[5];
+                    bookEdition = searchReturn[6];
+                    bookBestSeller = searchReturn[7];
+                    bookTopRated = searchReturn[8];
+                    bookRating = searchReturn[9];
+                    bookReviewCount = searchReturn[10];
+                    bookPrice = searchReturn[11];
                     await showDialog<void>(
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
                             content: Text(
-                                'you typed "$IsbnNumber" book return "$searchReturn" '
+                                'you typed "$IsbnNumber"\n'
+                                    'Row Return: $searchReturn \n'
+                                    'Book Title: $bookTitle \n '
+                                    'Book Description: $bookDescription \n'
+                                    'Book Author: $bookAuthor \n'
+                                    'Book ISBN 10: $bookISBN10 \n'
+                                    'Book ISBN 13: $bookISBN13 \n'
+                                    'Book Publish Date: $bookPublishDate \n'
+                                    'Book Edition: $bookEdition \n'
+                                    'Book Best Seller: $bookBestSeller \n'
+                                    'Book Top Rated: $bookTopRated \n'
+                                    'Book Rating: $bookRating \n'
+                                    'Book Review Count: $bookReviewCount \n'
+                                    'Book Price: $bookPrice \n'
                             ),
                             actions: <Widget>[
                               TextButton(
