@@ -91,7 +91,7 @@ class Calendar extends StatelessWidget {
                               ),
                               child: ListTile(
                                   onTap: () => print(""),
-                                  title: Text('${value[index].title}'),
+                                  title: Text(value[index].title),
                               )
                           );
                         });

@@ -28,7 +28,7 @@ class _welcomePageState extends State<welcomePage> {
           Text(
             "CS Book Helper",
             style: GoogleFonts.shizuru(
-              textStyle: TextStyle(
+              textStyle: const TextStyle(
                 fontSize: 50,
                 color: Colors.white,
               ),
@@ -39,7 +39,7 @@ class _welcomePageState extends State<welcomePage> {
             onTap: () {
               Navigator.of(context).push(
                   MaterialPageRoute(
-                      builder: (context) => accountHandling()));
+                      builder: (context) => const accountHandling()));
             },
             child: Container(
               height: 100,
@@ -52,7 +52,7 @@ class _welcomePageState extends State<welcomePage> {
                 child: Text(
                   "Get Started",
                   style: GoogleFonts.gasoekOne(
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                       fontSize: 50,
                       color: Colors.white,
                     ),

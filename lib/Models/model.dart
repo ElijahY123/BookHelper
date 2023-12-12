@@ -1,5 +1,4 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'dart:typed_data';
 
 // Selected Page Data
 import 'package:flutter/cupertino.dart';
@@ -75,8 +74,8 @@ class AudioBooksModel {
 
 class CalendarModel {
   DateTime today = DateTime.now();
-  DateTime firstDay = DateTime.now().subtract(Duration(days: 365));
-  DateTime lastDay = DateTime.now().add(Duration(days: 1826));
+  DateTime firstDay = DateTime.now().subtract(const Duration(days: 365));
+  DateTime lastDay = DateTime.now().add(const Duration(days: 1826));
   Map<DateTime, List<Event>> events = {};
   TextEditingController eventController = TextEditingController();
   late ValueNotifier<List<Event>> selectedEvents = ValueNotifier(getEventsForDay(today));

@@ -1,9 +1,6 @@
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:group_d_final/Models/model.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:group_d_final/views/StartupPage.dart';
 import 'package:group_d_final/views/WelcomePage.dart';
 import 'package:group_d_final/views/audioBook.dart';
 import 'package:group_d_final/views/Calendar.dart';
@@ -50,26 +47,23 @@ class _CSBookControllerState extends State<CSBookController> {
     Widget? page;
     switch (pageSelected.getSelectedIndex()) {
       case 0:
-        page = welcomePage();
+        page = const welcomePage();
         break;
       case 1:
         page = const CSV_View();
         break;
       case 2:
-        page = const welcomePage();
-        break;
-      case 3:
         page = YoutubeView(
           videoInfos: VideoRepository.videoInfos,
           onWatchYoutube: navigateToYoutubeView,
         );
         break;
-      case 4:
+      case 3:
         page = AudioBook(
           books: booksModel.books,
           player: booksModel.player,
         );
-      case 5:
+      case 4:
         page = Calendar(
           today: _calendarModel.today,
           firstDay: _calendarModel.firstDay,
@@ -123,10 +117,6 @@ class _CSBookControllerState extends State<CSBookController> {
                       const NavigationDrawerDestination(
                         icon: Icon(Icons.table_chart),
                         label: Text('CSV Display'),
-                      ),
-                      const NavigationDrawerDestination(
-                        icon: Icon(Icons.home),
-                        label: Text('Login'),
                       ),
                       const NavigationDrawerDestination(
                         icon: Icon(Icons.play_arrow),

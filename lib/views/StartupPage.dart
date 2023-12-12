@@ -18,7 +18,7 @@ class _accountLogin extends State<accountHandling> {
           Container(
             height: double.infinity,
             width: double.infinity,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
                   Color(0xff8d76d3),
@@ -36,17 +36,17 @@ class _accountLogin extends State<accountHandling> {
               child: Text(
                 "Welcome",
                 style: GoogleFonts.gasoekOne(
-                  textStyle: TextStyle(fontSize: 50, color: Colors.white),
+                  textStyle: const TextStyle(fontSize: 50, color: Colors.white),
                 ),
               ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 150),
+            padding: const EdgeInsets.only(top: 150),
             child: Container(
               height: double.infinity,
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(40),
                   topRight: Radius.circular(40),
@@ -61,7 +61,7 @@ class _accountLogin extends State<accountHandling> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextField(
+                    const TextField(
                       keyboardAppearance: Brightness.dark,
                       decoration: InputDecoration(
                         label: Text(
@@ -72,7 +72,7 @@ class _accountLogin extends State<accountHandling> {
                         ),
                       ),
                     ),
-                    TextField(
+                    const TextField(
                       obscureText: true,
                       decoration: InputDecoration(
                         label: Text(
@@ -83,7 +83,7 @@ class _accountLogin extends State<accountHandling> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 70,),
+                    const SizedBox(height: 70,),
                     GestureDetector(
                       onTap: () {},
                       child: Container(
@@ -91,7 +91,7 @@ class _accountLogin extends State<accountHandling> {
                         width: 300,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          gradient: LinearGradient(
+                          gradient: const LinearGradient(
                             colors: [
                               Color(0xff8d76d3),
                               Color(0xff5c53cb),
@@ -105,7 +105,7 @@ class _accountLogin extends State<accountHandling> {
                               "Login",
                             style: GoogleFonts.gasoekOne(
                               color: Colors.white,
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontSize: 40,
                               ),
                             ),
@@ -113,7 +113,7 @@ class _accountLogin extends State<accountHandling> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 25,),
+                    const SizedBox(height: 25,),
                     TextButton(
                         onPressed: () {
                           Navigator.of(context).push(
@@ -124,7 +124,7 @@ class _accountLogin extends State<accountHandling> {
                           "Join Now!",
                           style: GoogleFonts.gasoekOne(
                             color: Colors.deepPurple,
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                               fontSize: 20,
                             ),
                           ),
@@ -144,6 +144,6 @@ class _accountLogin extends State<accountHandling> {
 class _accountCreate extends State<accountHandling> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }
