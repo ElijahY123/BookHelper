@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:group_d_final/Models/model.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:group_d_final/views/WelcomePage.dart';
+import 'package:group_d_final/views/Profile.dart';
 import 'package:group_d_final/views/audioBook.dart';
 import 'package:group_d_final/views/Calendar.dart';
 import '../views/CSV_View.dart';
@@ -19,6 +19,7 @@ class _CSBookControllerState extends State<CSBookController> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final CalendarModel _calendarModel = CalendarModel();
   AudioBooksModel booksModel = AudioBooksModel();
+  AccountModel accountModel = AccountModel();
 
   // Navigation Drawer
 
@@ -47,7 +48,10 @@ class _CSBookControllerState extends State<CSBookController> {
     Widget? page;
     switch (pageSelected.getSelectedIndex()) {
       case 0:
-        page = const welcomePage();
+        page = Profile(
+          username: accountModel.userName,
+          password: accountModel.passWord,
+        );
         break;
       case 1:
         page = const CSV_View();
@@ -111,8 +115,8 @@ class _CSBookControllerState extends State<CSBookController> {
                       IconButton(
                           onPressed: closeRail, icon: const Icon(Icons.close)),
                       const NavigationDrawerDestination(
-                        icon: Icon(Icons.home),
-                        label: Text('Home Page'),
+                        icon: Icon(Icons.person),
+                        label: Text('Profile'),
                       ),
                       const NavigationDrawerDestination(
                         icon: Icon(Icons.table_chart),
@@ -130,23 +134,6 @@ class _CSBookControllerState extends State<CSBookController> {
                           icon: Icon(Icons.calendar_month_outlined),
                           label: Text('Calendar'),
                       ),
-                      /*NavigationDrawerDestination(
-                        icon: Icon(Icons.info_outline),
-                        label: Text('Audio Books'),
-                      ),
-                      NavigationDrawerDestination(
-                        icon: Icon(Icons.fitness_center),
-                        label: Text("Start Workout"),
-                      ),
-                      NavigationDrawerDestination(
-                          icon: Icon(Icons.table_chart),
-                          label: Text('Workout Schedule')
-                      ),
-                      NavigationDrawerDestination(
-                        icon: Icon(Icons.message_outlined),
-                        label: Text("Announcements"),
-                      ),
-                       */
                     ], // onDestinationSelected
                   ),
                 ),
