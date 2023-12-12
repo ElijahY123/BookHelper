@@ -121,7 +121,7 @@ class Calendar extends StatelessWidget {
                                       onPressed: () {
                                         print("Submitted");
                                         events.addAll({
-                                          today: [Event("${selectedItem} is being delvered")]
+                                          today: [Event("${selectedItem} is being delivered")]
                                         });
                                         Navigator.of(context).pop();
                                         selectedEvents.value = getEventsForDay(today);
