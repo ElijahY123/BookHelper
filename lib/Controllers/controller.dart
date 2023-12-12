@@ -78,18 +78,18 @@ class _CSBookControllerState extends State<CSBookController> {
         page = const CSV_View();
         break;
 
-      case 3:
+      case 2:
         page = YoutubeView(
           videoInfos: VideoRepository.videoInfos,
           onWatchYoutube: navigateToYoutubeView,
         );
         break;
-      case 4:
+      case 3:
         page = AudioBook(
           books: booksModel.books,
           player: booksModel.player,
         );
-      case 5:
+      case 4:
         page = Calendar(
           today: _calendarModel.today,
           firstDay: _calendarModel.firstDay,
