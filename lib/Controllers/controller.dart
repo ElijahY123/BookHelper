@@ -43,6 +43,24 @@ class _CSBookControllerState extends State<CSBookController> {
     );
   }
 
+  // Calendar
+  void onDaySelected(DateTime day, DateTime focusedDay) {
+    setState(() {
+      _calendarModel.onDaySelected(day, focusedDay);
+    });
+  }
+/*
+  void processCSV(context) {
+    setState(() {
+      processCSV(context);
+    });
+  }
+ */
+
+  onDropDownChanged(String? item) {
+    (item) => setState(() => _calendarModel.selectedItem = item);
+  }
+
   SelectedPage pageSelected = SelectedPage();
 
   @override
@@ -63,6 +81,7 @@ class _CSBookControllerState extends State<CSBookController> {
           videoInfos: VideoRepository.videoInfos,
           onWatchYoutube: navigateToYoutubeView,
         );
+        page = welcomePage();
         break;
       case 4:
         page = AudioBook(
@@ -74,11 +93,18 @@ class _CSBookControllerState extends State<CSBookController> {
           today: _calendarModel.today,
           firstDay: _calendarModel.firstDay,
           lastDay: _calendarModel.lastDay,
-          onDaySelected: _calendarModel.onDaySelected,
+          onDaySelected: onDaySelected,
           events: _calendarModel.events,
           eventController: _calendarModel.eventController,
           selectedEvents: _calendarModel.selectedEvents,
           getEventsForDay: _calendarModel.getEventsForDay,
+          otherController: _calendarModel.otherController,
+          classController: _calendarModel.classController,
+          selectedItem: _calendarModel.selectedItem,
+          bookList: _calendarModel.bookList,
+          onDropDownChanged: onDropDownChanged,
+          processCSV: _calendarModel.processCSV,
+          getBookList: _calendarModel.getBookList,
         );
         break;
       default:
@@ -137,13 +163,10 @@ class _CSBookControllerState extends State<CSBookController> {
                         label: Text('Audio Books'),
                       ),
                       const NavigationDrawerDestination(
-                          icon: Icon(Icons.calendar_month_outlined),
-                          label: Text('Calendar'),
+                        icon: Icon(Icons.calendar_month_outlined),
+                        label: Text('Calendar'),
                       ),
-                      /*NavigationDrawerDestination(
-                        icon: Icon(Icons.info_outline),
-                        label: Text('Audio Books'),
-                      ),
+                      /*
                       NavigationDrawerDestination(
                         icon: Icon(Icons.fitness_center),
                         label: Text("Start Workout"),
