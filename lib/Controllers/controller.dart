@@ -49,6 +49,17 @@ class _CSBookControllerState extends State<CSBookController> {
       _calendarModel.onDaySelected(day, focusedDay);
     });
   }
+/*
+  void processCSV(context) {
+    setState(() {
+      processCSV(context);
+    });
+  }
+ */
+
+  onDropDownChanged(String? item) {
+    (item) => setState(() => _calendarModel.selectedItem = item);
+  }
 
   SelectedPage pageSelected = SelectedPage();
 
@@ -86,6 +97,13 @@ class _CSBookControllerState extends State<CSBookController> {
           eventController: _calendarModel.eventController,
           selectedEvents: _calendarModel.selectedEvents,
           getEventsForDay: _calendarModel.getEventsForDay,
+          otherController: _calendarModel.otherController,
+          classController: _calendarModel.classController,
+          selectedItem: _calendarModel.selectedItem,
+          bookList: _calendarModel.bookList,
+          onDropDownChanged: onDropDownChanged,
+          processCSV: _calendarModel.processCSV,
+          getBookList: _calendarModel.getBookList,
         );
         break;
       default:

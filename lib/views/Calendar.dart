@@ -1,3 +1,4 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:group_d_final/Models/Event.dart';
@@ -11,6 +12,14 @@ class Calendar extends StatelessWidget {
   final TextEditingController eventController;
   final ValueNotifier<List<Event>> selectedEvents;
   final List<Event> Function(DateTime day) getEventsForDay;
+  final TextEditingController otherController;
+  final TextEditingController classController;
+  String selectedItem;
+  final List<String> bookList;
+  final Function(String?) onDropDownChanged;
+  final Function(dynamic context) processCSV;
+  final List<String> Function(dynamic context) getBookList;
+
 
   Calendar ({
     required this.today,
@@ -21,6 +30,13 @@ class Calendar extends StatelessWidget {
     required this.eventController,
     required this.selectedEvents,
     required this.getEventsForDay,
+    required this.otherController,
+    required this.classController,
+    required this.selectedItem,
+    required this.bookList,
+    required this.onDropDownChanged,
+    required this.processCSV,
+    required this.getBookList,
   });
 
   @override
@@ -31,6 +47,7 @@ class Calendar extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
+            processCSV(context);
             showDialog(
                 context: context,
                 builder: (context) {
@@ -45,7 +62,33 @@ class Calendar extends StatelessWidget {
                                 builder: (context) {
                                   return AlertDialog(
                                     title: Text("Book for class"),
-
+                                    content: Padding(
+                                    padding:  EdgeInsets.all(8),
+                                    child: DropdownSearch<String> (
+                                      items: getBookList(context),
+                                      selectedItem: selectedItem,
+                                      popupProps: PopupPropsMultiSelection.menu(
+                                        showSelectedItems: true,
+                                        showSearchBox: true,
+                                      ),
+                                      onChanged: (string) {
+                                        selectedItem = string!;
+                                      }
+                                    )
+                                  ),
+                                  actions: [
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        print("Submitted");
+                                        events.addAll({
+                                          today: [Event("Bring ${selectedItem} to class")]
+                                        });
+                                        Navigator.of(context).pop();
+                                        selectedEvents.value = getEventsForDay(today);
+                                      },
+                                      child: Text("Submit"),
+                                    ),
+                                  ],
                                   );
                                 }
                             );
@@ -59,6 +102,33 @@ class Calendar extends StatelessWidget {
                               builder: (context) {
                                 return AlertDialog(
                                   title: Text("Book Delivery"),
+                                  content: Padding(
+                                    padding:  EdgeInsets.all(8),
+                                    child: DropdownSearch<String> (
+                                      items: getBookList(context),
+                                      selectedItem: selectedItem,
+                                      popupProps: PopupPropsMultiSelection.menu(
+                                        showSelectedItems: true,
+                                        showSearchBox: true,
+                                      ),
+                                      onChanged: (string) {
+                                        selectedItem = string!;
+                                      }
+                                    )
+                                  ),
+                                  actions: [
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        print("Submitted");
+                                        events.addAll({
+                                          today: [Event("${selectedItem} is being delvered")]
+                                        });
+                                        Navigator.of(context).pop();
+                                        selectedEvents.value = getEventsForDay(today);
+                                      },
+                                      child: Text("Submit"),
+                                    ),
+                                  ],
                                 );
                               }
                           );
@@ -72,6 +142,33 @@ class Calendar extends StatelessWidget {
                                 builder: (context) {
                                   return AlertDialog(
                                     title: Text("Book Rental"),
+                                    content: Padding(
+                                        padding:  EdgeInsets.all(8),
+                                        child: DropdownSearch<String> (
+                                            items: getBookList(context),
+                                            selectedItem: selectedItem,
+                                            popupProps: PopupPropsMultiSelection.menu(
+                                              showSelectedItems: true,
+                                              showSearchBox: true,
+                                            ),
+                                            onChanged: (string) {
+                                              selectedItem = string!;
+                                            }
+                                        )
+                                    ),
+                                    actions: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          print("Submitted");
+                                          events.addAll({
+                                            today: [Event("${selectedItem} is due to be returned")]
+                                          });
+                                          Navigator.of(context).pop();
+                                          selectedEvents.value = getEventsForDay(today);
+                                        },
+                                        child: Text("Submit"),
+                                      ),
+                                    ],
                                   );
                                 }
                             );
@@ -85,6 +182,25 @@ class Calendar extends StatelessWidget {
                               builder: (context) {
                                 return AlertDialog(
                                   title: Text("Custom Event"),
+                                  content: Padding(
+                                    padding:  EdgeInsets.all(8),
+                                    child: TextField(
+                                      controller: eventController,
+                                    ),
+                                  ),
+                                  actions: [
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          events.addAll({
+                                            today: [Event(eventController.text)]
+                                          });
+                                          print(events);
+                                          Navigator.of(context).pop();
+                                          selectedEvents.value = getEventsForDay(today);
+                                        },
+                                        child: Text("Submit")
+                                    )
+                                  ],
                                 );
                               }
                           );
