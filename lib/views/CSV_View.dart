@@ -58,37 +58,37 @@ class _CSV_ViewState extends State<CSV_View>{
                   onSubmitted: (String value) async{
                     IsbnNumber = value;
                     searchReturn = searchCSV(csvFile, IsbnNumber);
-                    bookTitle = searchReturn[0];
-                    bookDescription = searchReturn[1];
-                    bookAuthor = searchReturn[2];
-                    bookISBN10 = searchReturn[3];
-                    bookISBN13 = searchReturn[4];
-                    bookPublishDate = searchReturn[5];
-                    bookEdition = searchReturn[6];
-                    bookBestSeller = searchReturn[7];
-                    bookTopRated = searchReturn[8];
-                    bookRating = searchReturn[9];
-                    bookReviewCount = searchReturn[10];
-                    bookPrice = searchReturn[11];
+                    searchTextConvert(searchReturn);
                     await showDialog<void>(
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
                             content: Text(
                                 'you typed "$IsbnNumber"\n'
-                                    'Row Return: $searchReturn \n'
-                                    'Book Title: $bookTitle \n '
-                                    'Book Description: $bookDescription \n'
-                                    'Book Author: $bookAuthor \n'
-                                    'Book ISBN 10: $bookISBN10 \n'
-                                    'Book ISBN 13: $bookISBN13 \n'
-                                    'Book Publish Date: $bookPublishDate \n'
-                                    'Book Edition: $bookEdition \n'
-                                    'Book Best Seller: $bookBestSeller \n'
-                                    'Book Top Rated: $bookTopRated \n'
-                                    'Book Rating: $bookRating \n'
-                                    'Book Review Count: $bookReviewCount \n'
-                                    'Book Price: $bookPrice \n'
+                                    '\n'
+                                    'Book Title: "$bookTitle" \n'
+                                    '\n'
+                                    'Book Description: "$bookDescription" \n'
+                                    '\n'
+                                    'Book Author: "$bookAuthor" \n'
+                                    '\n'
+                                    'Book ISBN 10: "$bookISBN10" \n'
+                                    '\n'
+                                    'Book ISBN 13: "$bookISBN13" \n'
+                                    '\n'
+                                    'Book Publish Date: "$bookPublishDate" \n'
+                                    '\n'
+                                    'Book Edition: "$bookEdition" \n'
+                                    '\n'
+                                    'Book Best Seller: "$bookBestSeller" \n'
+                                    '\n'
+                                    'Book Top Rated: "$bookTopRated" \n'
+                                    '\n'
+                                    'Book Rating: "$bookRating" \n'
+                                    '\n'
+                                    'Book Review Count: "$bookReviewCount" \n'
+                                    '\n'
+                                    'Book Price: "$bookPrice" \n'
                             ),
                             actions: <Widget>[
                               TextButton(
@@ -168,4 +168,20 @@ class _CSV_ViewState extends State<CSV_View>{
       throw Exception('Could not Launch URL: $_url ');
     }
     }
+
+    void searchTextConvert(List<dynamic> searchResult){
+      bookTitle = searchResult[0].toString();
+      bookDescription = searchResult[1].toString();
+      bookAuthor = searchResult[2].toString();
+      bookISBN10 = searchResult[3].toString();
+      bookISBN13 = searchResult[4].toString();
+      bookPublishDate = searchResult[5].toString();
+      bookEdition = searchResult[6].toString();
+      bookBestSeller = searchResult[7].toString();
+      bookTopRated = searchResult[8].toString();
+      bookRating = searchResult[9].toString();
+      bookReviewCount = searchResult[10].toString();
+      bookPrice = searchResult[11].toString();
+    }
+
 }
