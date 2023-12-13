@@ -15,6 +15,18 @@ class _CSV_ViewState extends State<CSV_View>{
   List<List<dynamic>>? csvFile;
   late List<dynamic> searchReturn;
   late String IsbnNumber;
+  late String bookTitle;
+  late String bookDescription;
+  late String bookAuthor;
+  late String bookISBN10;
+  late String bookISBN13;
+  late String bookPublishDate;
+  late String bookEdition;
+  late String bookBestSeller;
+  late String bookTopRated;
+  late String bookRating;
+  late String bookReviewCount;
+  late String bookPrice;
   final Uri _url = Uri.parse('https://www.kaggle.com/uzair01');
 
   Future<List<List<dynamic>>> processCSV() async {
@@ -46,12 +58,37 @@ class _CSV_ViewState extends State<CSV_View>{
                   onSubmitted: (String value) async{
                     IsbnNumber = value;
                     searchReturn = searchCSV(csvFile, IsbnNumber);
+                    searchTextConvert(searchReturn);
                     await showDialog<void>(
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
                             content: Text(
-                                'you typed "$IsbnNumber" book return "$searchReturn" '
+                                'you typed "$IsbnNumber"\n'
+                                    '\n'
+                                    'Book Title: "$bookTitle" \n'
+                                    '\n'
+                                    'Book Description: "$bookDescription" \n'
+                                    '\n'
+                                    'Book Author: "$bookAuthor" \n'
+                                    '\n'
+                                    'Book ISBN 10: "$bookISBN10" \n'
+                                    '\n'
+                                    'Book ISBN 13: "$bookISBN13" \n'
+                                    '\n'
+                                    'Book Publish Date: "$bookPublishDate" \n'
+                                    '\n'
+                                    'Book Edition: "$bookEdition" \n'
+                                    '\n'
+                                    'Book Best Seller: "$bookBestSeller" \n'
+                                    '\n'
+                                    'Book Top Rated: "$bookTopRated" \n'
+                                    '\n'
+                                    'Book Rating: "$bookRating" \n'
+                                    '\n'
+                                    'Book Review Count: "$bookReviewCount" \n'
+                                    '\n'
+                                    'Book Price: "$bookPrice" \n'
                             ),
                             actions: <Widget>[
                               TextButton(
@@ -131,4 +168,20 @@ class _CSV_ViewState extends State<CSV_View>{
       throw Exception('Could not Launch URL: $_url ');
     }
     }
+
+    void searchTextConvert(List<dynamic> searchResult){
+      bookTitle = searchResult[0].toString();
+      bookDescription = searchResult[1].toString();
+      bookAuthor = searchResult[2].toString();
+      bookISBN10 = searchResult[3].toString();
+      bookISBN13 = searchResult[4].toString();
+      bookPublishDate = searchResult[5].toString();
+      bookEdition = searchResult[6].toString();
+      bookBestSeller = searchResult[7].toString();
+      bookTopRated = searchResult[8].toString();
+      bookRating = searchResult[9].toString();
+      bookReviewCount = searchResult[10].toString();
+      bookPrice = searchResult[11].toString();
+    }
+
 }
