@@ -87,6 +87,7 @@ class YoutubeView extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent),
       onPressed: () {
+
         Navigator.push(
             context,
             MaterialPageRoute(builder: (context) =>
