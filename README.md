@@ -1,16 +1,21 @@
-# group_d_final
+# group D Final Project CS Books
 
-A new Flutter project.
+This is Group D's Final project for CS 3541 Fall 2023 Software Engineering.
 
-## Getting Started
+## Group Members
 
-This project is a starting point for a Flutter application.
+    - Elijah Y
+    - Jacob A
+    - Max C
+    - Ethan S
+    - Ethan N
 
-A few resources to get you started if this is your first Flutter project:
+## App Pages
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This App Has A login barrier followed by a couple of page options. There
+is the Profile page showing your profile. The CSV Display page which 
+displays the CSV file of books and allows for searching of the list.
+The Video Guides page which has guides on selecting books. The Audio
+Books page which has a selection of Audio Books. Lastly a calandar page
+where a user can have events made for book due dates, what books
+they need that day, etc...
