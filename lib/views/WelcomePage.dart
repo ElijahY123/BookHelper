@@ -25,18 +25,11 @@ class _welcomePageState extends State<welcomePage> {
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage(
-                        "assets/Images/welcomeBackground.jpg"
+                        "assets/Images/welcomeBackground.jpg",
+                        //Citation: Luminous Efficiency PNG Image, Luminous Efficiency Of Digital Technology, Line, Science And Technology, Blu Ray PNG Image For Free Download: Digital technology, Computer technology, Science and technology. (2018). Retrieved from https://www.pinterest.com/pin/556616835188691710/
                       ),
                     fit: BoxFit.fill
                   ),
-                  /*gradient: LinearGradient(
-                      colors: [
-                        Colors.lightBlueAccent,
-                        Color(0xFF01579B)
-                      ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight
-                  )*/
                 ),
               ),
               Container(
@@ -89,7 +82,7 @@ class _welcomePageState extends State<welcomePage> {
                         child: Container(
                           height: 90,
                           width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Colors.transparent,
                             borderRadius: BorderRadius.all(Radius.circular(50)),
                           ),
@@ -114,61 +107,4 @@ class _welcomePageState extends State<welcomePage> {
       ),
     );
   }
-  /*@override
-  Widget build(BuildContext context) {
-    return Container(
-      height: double.infinity,
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("assets/images/LoginBackground2.jpeg"),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          //SizedBox(height: 100,),
-          Text(
-            "CS Book Helper",
-            style: GoogleFonts.shizuru(
-              textStyle: const TextStyle(
-                fontSize: 50,
-                color: Colors.white,
-              ),
-            ),
-          ),
-          //SizedBox(height: 300,),
-          GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(
-                      builder: (context) => loginPage()));
-            },
-            child: Container(
-              height: 100,
-              width: 380,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                border: Border.all(color: Colors.white),
-              ),
-              child: Center(
-                child: Text(
-                  "Get Started",
-                  style: GoogleFonts.shizuru(
-                    textStyle: const TextStyle(
-                      fontSize: 50,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }*/
-
-
 }
