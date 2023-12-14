@@ -1,9 +1,12 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:group_d_final/Models/model.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:group_d_final/Models/Event.dart';
 
 class Calendar extends StatelessWidget {
+  CalendarModel calendarModel = CalendarModel();
+
   final DateTime today;
   final DateTime firstDay;
   final DateTime lastDay;
@@ -13,6 +16,7 @@ class Calendar extends StatelessWidget {
   final ValueNotifier<List<Event>> selectedEvents;
   final List<Event> Function(DateTime day) getEventsForDay;
   String selectedItem;
+  String username;
   final List<String> bookList;
   final Function(String?) onDropDownChanged;
   final Function(dynamic context) processCSV;
@@ -20,6 +24,7 @@ class Calendar extends StatelessWidget {
 
 
   Calendar ({
+    required this.username,
     required this.today,
     required this.firstDay,
     required this.lastDay,
@@ -76,6 +81,7 @@ class Calendar extends StatelessWidget {
                                       ElevatedButton(
                                         onPressed: () {
                                           if (events[today] != null) {
+                                            calendarModel.addbookforClass(username, selectedItem);
                                             events[today]?.add(Event("Bring ${selectedItem} to class"));
                                           }
                                           events.putIfAbsent(today, () => [Event("Bring ${selectedItem} to class")]);
@@ -123,6 +129,7 @@ class Calendar extends StatelessWidget {
                                         onPressed: () {
                                           print("Submitted");
                                           if (events[today] != null) {
+                                            calendarModel.addbookDelivery(username, selectedItem);
                                             events[today]?.add(Event("${selectedItem} is being delivered"));
                                           }
                                           events.putIfAbsent(today, () => [Event("${selectedItem} is being delivered")]);
@@ -170,6 +177,7 @@ class Calendar extends StatelessWidget {
                                       ElevatedButton(
                                         onPressed: () {
                                           if (events[today] != null) {
+                                            calendarModel.addbookRental(username, selectedItem);
                                             events[today]?.add(Event("${selectedItem} is due to be returned"));
                                           }
                                           events.putIfAbsent(today, () => [Event("${selectedItem} is due to be returned")]);
@@ -207,6 +215,7 @@ class Calendar extends StatelessWidget {
                                     actions: [
                                       ElevatedButton(
                                           onPressed: () {
+                                            calendarModel.addcustomEvent(username, eventController.text);
                                             events.addAll({
                                               today: [Event(eventController.text)]
                                             });

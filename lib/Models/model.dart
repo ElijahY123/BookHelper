@@ -93,6 +93,9 @@ class CalendarModel {
   late String IsbnNumber;
   Uri _url = Uri.parse('https://www.kaggle.com/uzair01');
 
+  final accountsRef = FirebaseFirestore.instance.collection('Accounts');
+
+
   void processCSV(context) async {
     var result = await DefaultAssetBundle.of(context).loadString(
       "assets/Amazon_Books_Data.csv",
@@ -121,6 +124,75 @@ class CalendarModel {
       selectedEvents.value = getEventsForDay(day);
     }
   }
+
+  /**
+   * Searhes Firebase for Username and stores events in a subcollection Events
+   * in collection Accounts.
+   * @author: Elijah Yeboah
+   * @param: Username - Takes in a string username.
+   * @param: SelectedItem - Takes in a string selectedItem which is whatever the event is.
+   * @return: none
+   */
+  void addbookforClass(String username, String selectedItem) {
+    accountsRef.get().then((QuerySnapshot snapshot) {
+      snapshot.docs.forEach((DocumentSnapshot doc) {
+        accountsRef.doc(doc.id).get().then((DocumentSnapshot doc) {
+          if (username == doc['Username']) {
+            FirebaseFirestore.instance.collection('Accounts').doc(doc.id)
+                .collection('Events').add({
+              'Book for Class': selectedItem,
+            });
+          }
+        });
+      });
+    });
+  }
+
+  void addbookDelivery(String username, String selectedItem) {
+    accountsRef.get().then((QuerySnapshot snapshot) {
+      snapshot.docs.forEach((DocumentSnapshot doc) {
+        accountsRef.doc(doc.id).get().then((DocumentSnapshot doc) {
+          if (username == doc['Username']) {
+            FirebaseFirestore.instance.collection('Accounts').doc(doc.id)
+                .collection('Events').add({
+              'Book Delivery': selectedItem,
+            });
+          }
+        });
+      });
+    });
+  }
+
+  void addbookRental(String username, String selectedItem) {
+    accountsRef.get().then((QuerySnapshot snapshot) {
+      snapshot.docs.forEach((DocumentSnapshot doc) {
+        accountsRef.doc(doc.id).get().then((DocumentSnapshot doc) {
+          if (username == doc['Username']) {
+            FirebaseFirestore.instance.collection('Accounts').doc(doc.id)
+                .collection('Events').add({
+              'Book Rental': selectedItem,
+            });
+          }
+        });
+      });
+    });
+  }
+
+  void addcustomEvent(String username, String selectedItem) {
+    accountsRef.get().then((QuerySnapshot snapshot) {
+      snapshot.docs.forEach((DocumentSnapshot doc) {
+        accountsRef.doc(doc.id).get().then((DocumentSnapshot doc) {
+          if (username == doc['Username']) {
+            FirebaseFirestore.instance.collection('Accounts').doc(doc.id)
+                .collection('Events').add({
+              'Custom Event': selectedItem,
+            });
+          }
+        });
+      });
+    });
+  }
+
 }
 
 class AccountModel {
@@ -162,7 +234,7 @@ class AccountModel {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => CSBookController()));
+                        builder: (context) => CSBookController(username: userName, password: passWord,)));
               } else if (userName == doc['Username'] &&
                   passWord != doc['Password']) {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:group_d_final/Models/model.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:group_d_final/views/LoginPage.dart';
 import 'package:group_d_final/views/Profile.dart';
 import 'package:group_d_final/views/audioBook.dart';
 import 'package:group_d_final/views/Calendar.dart';
@@ -11,18 +12,36 @@ import '../Models/VideoRepository.dart';
 import '../views/YoutubeView.dart';
 
 class CSBookController extends StatefulWidget {
-  const CSBookController({super.key});
+  String username;
+  String password;
+
+  CSBookController({
+    super.key,
+    required this.username,
+    required this.password,
+  });
 
   @override
-  State<CSBookController> createState() => _CSBookControllerState();
+  State<CSBookController> createState() => _CSBookControllerState(
+      username: username, 
+      password: password
+  );
+  
 }
 
 class _CSBookControllerState extends State<CSBookController> {
+  String username;
+  String password;
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final CalendarModel _calendarModel = CalendarModel();
   AudioBooksModel booksModel = AudioBooksModel();
   AccountModel accountModel = AccountModel();
-
+  
+  _CSBookControllerState({
+    required this.username,
+    required this.password,
+  });
+  
   // Navigation Drawer
 
   void openRail() {
@@ -70,8 +89,8 @@ class _CSBookControllerState extends State<CSBookController> {
     switch (pageSelected.getSelectedIndex()) {
       case 0:
         page = Profile(
-            username: accountModel.userName,
-            password: accountModel.passWord,
+            username: username,
+            password: password,
         );
         break;
       case 1:
@@ -99,6 +118,7 @@ class _CSBookControllerState extends State<CSBookController> {
           eventController: _calendarModel.eventController,
           selectedEvents: _calendarModel.selectedEvents,
           getEventsForDay: _calendarModel.getEventsForDay,
+          username: username,
           selectedItem: _calendarModel.selectedItem,
           bookList: _calendarModel.bookList,
           onDropDownChanged: onDropDownChanged,

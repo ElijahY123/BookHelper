@@ -25,10 +25,10 @@ class _welcomePageState extends State<welcomePage> {
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage(
-                        "assets/Images/welcomeBackground.jpg",
+                        "assets/images/welcomeBackground.jpg",
                         //Citation: Luminous Efficiency PNG Image, Luminous Efficiency Of Digital Technology, Line, Science And Technology, Blu Ray PNG Image For Free Download: Digital technology, Computer technology, Science and technology. (2018). Retrieved from https://www.pinterest.com/pin/556616835188691710/
                       ),
-                    fit: BoxFit.fill
+                    fit: BoxFit.cover
                   ),
                 ),
               ),
