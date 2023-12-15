@@ -3,6 +3,7 @@ import 'package:csv/csv.dart';
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:group_d_final/Controllers/controller.dart';
+import 'dart:async';
 
 // Selected Page Data
 import 'package:flutter/cupertino.dart';
@@ -87,6 +88,10 @@ class CalendarModel {
   late ValueNotifier<List<Event>> selectedEvents = ValueNotifier(getEventsForDay(today));
   String selectedItem = "";
   List<String> bookList = [];
+  bool eventsLoaded = false;
+  Map<DateTime, List<Event>> firstLoadEvents = {};
+
+  late Timer timer = Timer.periodic(Duration(seconds: 2), (Timer t) => loadDatabase());
 
   List<List<dynamic>>? csvFile = [];
   late List<dynamic> searchReturn;
@@ -94,7 +99,6 @@ class CalendarModel {
   Uri _url = Uri.parse('https://www.kaggle.com/uzair01');
 
   final accountsRef = FirebaseFirestore.instance.collection('Accounts');
-
 
   void processCSV(context) async {
     var result = await DefaultAssetBundle.of(context).loadString(
@@ -115,7 +119,9 @@ class CalendarModel {
   }
 
   List<Event> getEventsForDay(DateTime day) {
-    return events[day] ?? [];
+    loadDatabase();
+    DateTime date = DateTime(day.year, day.month, day.day, 0, 0, 0, 0, 0);
+    return events[date] ?? [];
   }
 
   void onDaySelected(DateTime day, DateTime focusedDay) {
@@ -123,6 +129,40 @@ class CalendarModel {
       today = day;
       selectedEvents.value = getEventsForDay(day);
     }
+  }
+
+  void loadDatabase() {
+    if (!eventsLoaded) {
+      updateEventsFromDatabase();
+    }
+    eventsLoaded = true;
+  }
+
+  void updateEventsFromDatabase() {
+    print("updated");
+    events.clear();
+    accountsRef.get().then((QuerySnapshot snapshot) {
+      snapshot.docs.forEach((DocumentSnapshot doc) {
+        accountsRef.doc(doc.id).get().then((DocumentSnapshot doc) {
+          final eventsRef = FirebaseFirestore.instance.collection('Accounts').doc(doc.id).collection("Events");
+          eventsRef.get().then((QuerySnapshot snapshot) {
+            snapshot.docs.forEach((DocumentSnapshot doc2) {
+              eventsRef.doc(doc2.id).get().then((DocumentSnapshot doc2) {
+                Timestamp temp = doc2.get("Day");
+                DateTime dbDay = temp.toDate();
+                String title = doc2.get("Title");
+
+                dbDay = DateTime(dbDay.year, dbDay.month, dbDay.day, 0, 0, 0, 0, 0);
+                if (events[dbDay] != null) {
+                  events[dbDay]?.add(Event(title));
+                }
+                events.putIfAbsent(dbDay, () => [Event(title)]);
+              });
+            });
+          });
+        });
+      });
+    });
   }
 
   /**
@@ -133,14 +173,14 @@ class CalendarModel {
    * @param: SelectedItem - Takes in a string selectedItem which is whatever the event is.
    * @return: none
    */
-  void addEvent(String username, String selectedItem, var today) {
+  void addEvent(String username, String selectedItem, DateTime today) {
     accountsRef.get().then((QuerySnapshot snapshot) {
       snapshot.docs.forEach((DocumentSnapshot doc) {
         accountsRef.doc(doc.id).get().then((DocumentSnapshot doc) {
           if (username == doc['Username']) {
             FirebaseFirestore.instance.collection('Accounts').doc(doc.id)
                 .collection('Events').add({
-              'Day': today,
+              'Day': today.add(Duration(days: 1)),
               'Title': selectedItem,
             });
           }
@@ -148,7 +188,6 @@ class CalendarModel {
       });
     });
   }
-
 }
 
 class AccountModel {
