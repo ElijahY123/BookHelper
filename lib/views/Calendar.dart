@@ -81,7 +81,7 @@ class Calendar extends StatelessWidget {
                                       ElevatedButton(
                                         onPressed: () {
                                           if (events[today] != null) {
-                                            calendarModel.addbookforClass(username, selectedItem);
+                                            calendarModel.addEvent(username, "Bring ${selectedItem} to class", today);
                                             events[today]?.add(Event("Bring ${selectedItem} to class"));
                                           }
                                           events.putIfAbsent(today, () => [Event("Bring ${selectedItem} to class")]);
@@ -129,7 +129,7 @@ class Calendar extends StatelessWidget {
                                         onPressed: () {
                                           print("Submitted");
                                           if (events[today] != null) {
-                                            calendarModel.addbookDelivery(username, selectedItem);
+                                            calendarModel.addEvent(username, "${selectedItem} is being delivered", today);
                                             events[today]?.add(Event("${selectedItem} is being delivered"));
                                           }
                                           events.putIfAbsent(today, () => [Event("${selectedItem} is being delivered")]);
@@ -177,7 +177,7 @@ class Calendar extends StatelessWidget {
                                       ElevatedButton(
                                         onPressed: () {
                                           if (events[today] != null) {
-                                            calendarModel.addbookRental(username, selectedItem);
+                                            calendarModel.addEvent(username, "${selectedItem} is due to be returned", today);
                                             events[today]?.add(Event("${selectedItem} is due to be returned"));
                                           }
                                           events.putIfAbsent(today, () => [Event("${selectedItem} is due to be returned")]);
@@ -215,7 +215,7 @@ class Calendar extends StatelessWidget {
                                     actions: [
                                       ElevatedButton(
                                           onPressed: () {
-                                            calendarModel.addcustomEvent(username, eventController.text);
+                                            calendarModel.addEvent(username, eventController.text, today);
                                             events.addAll({
                                               today: [Event(eventController.text)]
                                             });
@@ -276,28 +276,6 @@ class Calendar extends StatelessWidget {
 
             ),
             SizedBox(height: 7.0),
-            Expanded(
-              child: ValueListenableBuilder<List<Event>>(
-                  valueListenable: selectedEvents,
-                  builder: (context, value, _) {
-                    return ListView.builder(
-                        itemCount: value.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                              margin: EdgeInsets.symmetric(horizontal: 12, vertical: 2),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: Colors.deepPurpleAccent,
-                              ),
-                              child: ListTile(
-                                textColor: Colors.white70,
-                                title: Text('${value[index].title}'),
-                              )
-                          );
-                        });
-                  }
-              ),
-            )
           ]
       ),
       backgroundColor: Colors.white70,

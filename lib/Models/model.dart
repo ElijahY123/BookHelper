@@ -133,59 +133,15 @@ class CalendarModel {
    * @param: SelectedItem - Takes in a string selectedItem which is whatever the event is.
    * @return: none
    */
-  void addbookforClass(String username, String selectedItem) {
+  void addEvent(String username, String selectedItem, var today) {
     accountsRef.get().then((QuerySnapshot snapshot) {
       snapshot.docs.forEach((DocumentSnapshot doc) {
         accountsRef.doc(doc.id).get().then((DocumentSnapshot doc) {
           if (username == doc['Username']) {
             FirebaseFirestore.instance.collection('Accounts').doc(doc.id)
                 .collection('Events').add({
-              'Book for Class': selectedItem,
-            });
-          }
-        });
-      });
-    });
-  }
-
-  void addbookDelivery(String username, String selectedItem) {
-    accountsRef.get().then((QuerySnapshot snapshot) {
-      snapshot.docs.forEach((DocumentSnapshot doc) {
-        accountsRef.doc(doc.id).get().then((DocumentSnapshot doc) {
-          if (username == doc['Username']) {
-            FirebaseFirestore.instance.collection('Accounts').doc(doc.id)
-                .collection('Events').add({
-              'Book Delivery': selectedItem,
-            });
-          }
-        });
-      });
-    });
-  }
-
-  void addbookRental(String username, String selectedItem) {
-    accountsRef.get().then((QuerySnapshot snapshot) {
-      snapshot.docs.forEach((DocumentSnapshot doc) {
-        accountsRef.doc(doc.id).get().then((DocumentSnapshot doc) {
-          if (username == doc['Username']) {
-            FirebaseFirestore.instance.collection('Accounts').doc(doc.id)
-                .collection('Events').add({
-              'Book Rental': selectedItem,
-            });
-          }
-        });
-      });
-    });
-  }
-
-  void addcustomEvent(String username, String selectedItem) {
-    accountsRef.get().then((QuerySnapshot snapshot) {
-      snapshot.docs.forEach((DocumentSnapshot doc) {
-        accountsRef.doc(doc.id).get().then((DocumentSnapshot doc) {
-          if (username == doc['Username']) {
-            FirebaseFirestore.instance.collection('Accounts').doc(doc.id)
-                .collection('Events').add({
-              'Custom Event': selectedItem,
+              'Day': today,
+              'Title': selectedItem,
             });
           }
         });
