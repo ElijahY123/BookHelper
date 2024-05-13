@@ -124,6 +124,7 @@ class _CSBookControllerState extends State<CSBookController> {
           onDropDownChanged: onDropDownChanged,
           processCSV: _calendarModel.processCSV,
           getBookList: _calendarModel.getBookList,
+          updateEventsFromDatabase: _calendarModel.updateEventsFromDatabase,
         );
         break;
       default:
