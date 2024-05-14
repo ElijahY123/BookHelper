@@ -1,14 +1,11 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:csv/csv.dart';
-import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:group_d_final/Controllers/controller.dart';
 import 'dart:async';
 
 // Selected Page Data
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:group_d_final/Models/Event.dart';
 import "package:table_calendar/table_calendar.dart";
 
@@ -81,8 +78,8 @@ class AudioBooksModel {
 
 class CalendarModel {
   DateTime today = DateTime.now();
-  DateTime firstDay = DateTime.now().subtract(Duration(days: 365));
-  DateTime lastDay = DateTime.now().add(Duration(days: 1826));
+  DateTime firstDay = DateTime.now().subtract(const Duration(days: 365));
+  DateTime lastDay = DateTime.now().add(const Duration(days: 1826));
   Map<DateTime, List<Event>> events = {};
   TextEditingController eventController = TextEditingController();
   late ValueNotifier<List<Event>> selectedEvents = ValueNotifier(getEventsForDay(today));
@@ -91,12 +88,12 @@ class CalendarModel {
   bool eventsLoaded = false;
   Map<DateTime, List<Event>> firstLoadEvents = {};
 
-  late Timer timer = Timer.periodic(Duration(seconds: 2), (Timer t) => loadDatabase());
+  late Timer timer = Timer.periodic(const Duration(seconds: 2), (Timer t) => loadDatabase());
 
   List<List<dynamic>>? csvFile = [];
   late List<dynamic> searchReturn;
   late String IsbnNumber;
-  Uri _url = Uri.parse('https://www.kaggle.com/uzair01');
+  final Uri _url = Uri.parse('https://www.kaggle.com/uzair01');
 
   final accountsRef = FirebaseFirestore.instance.collection('Accounts');
 
@@ -104,7 +101,7 @@ class CalendarModel {
     var result = await DefaultAssetBundle.of(context).loadString(
       "assets/Amazon_Books_Data.csv",
     );
-    csvFile = CsvToListConverter().convert(result, eol: "\n").toList();
+    csvFile = const CsvToListConverter().convert(result, eol: "\n").toList();
     for (int i = 1; i < csvFile!.length; ++i) {
       if (csvFile?[i][0] != null)  {
         bookList.add(csvFile?[i][0]);
@@ -142,11 +139,11 @@ class CalendarModel {
     print("updated");
     events.clear();
     accountsRef.get().then((QuerySnapshot snapshot) {
-      snapshot.docs.forEach((DocumentSnapshot doc) {
+      for (var doc in snapshot.docs) {
         accountsRef.doc(doc.id).get().then((DocumentSnapshot doc) {
           final eventsRef = FirebaseFirestore.instance.collection('Accounts').doc(doc.id).collection("Events");
           eventsRef.get().then((QuerySnapshot snapshot) {
-            snapshot.docs.forEach((DocumentSnapshot doc2) {
+            for (var doc2 in snapshot.docs) {
               eventsRef.doc(doc2.id).get().then((DocumentSnapshot doc2) {
                 Timestamp temp = doc2.get("Day");
                 DateTime dbDay = temp.toDate();
@@ -158,34 +155,32 @@ class CalendarModel {
                 }
                 events.putIfAbsent(dbDay, () => [Event(title)]);
               });
-            });
+            }
           });
         });
-      });
+      }
     });
   }
 
-  /**
-   * Searhes Firebase for Username and stores events in a subcollection Events
-   * in collection Accounts.
-   * @author: Elijah Yeboah
-   * @param: Username - Takes in a string username.
-   * @param: SelectedItem - Takes in a string selectedItem which is whatever the event is.
-   * @return: none
-   */
+  /// Searhes Firebase for Username and stores events in a subcollection Events
+  /// in collection Accounts.
+  /// @author: Elijah Yeboah
+  /// @param: Username - Takes in a string username.
+  /// @param: SelectedItem - Takes in a string selectedItem which is whatever the event is.
+  /// @return: none
   void addEvent(String username, String selectedItem, DateTime today) {
     accountsRef.get().then((QuerySnapshot snapshot) {
-      snapshot.docs.forEach((DocumentSnapshot doc) {
+      for (var doc in snapshot.docs) {
         accountsRef.doc(doc.id).get().then((DocumentSnapshot doc) {
           if (username == doc['Username']) {
             FirebaseFirestore.instance.collection('Accounts').doc(doc.id)
                 .collection('Events').add({
-              'Day': today.add(Duration(days: 1)),
+              'Day': today.add(const Duration(days: 1)),
               'Title': selectedItem,
             });
           }
         });
-      });
+      }
     });
   }
 }
@@ -204,12 +199,10 @@ class AccountModel {
 
   String error = " ";
 
-  /**
-   * Checks the Firestore Database for a Username and Password created.
-   * @author: Elijah Yeboah
-   * @param: Context - Navigates to the functions of the app if successful.
-   * @return: none
-   */
+  /// Checks the Firestore Database for a Username and Password created.
+  /// @author: Elijah Yeboah
+  /// @param: Context - Navigates to the functions of the app if successful.
+  /// @return: none
   void retrieveLoginInfo(BuildContext context) async {
     if (userName.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -223,7 +216,7 @@ class AccountModel {
       ));
     } else {
       accountsRef.get().then((QuerySnapshot snapshot) {
-        snapshot.docs.forEach((DocumentSnapshot doc) {
+        for (var doc in snapshot.docs) {
           accountsRef.doc(doc.id).get().then((DocumentSnapshot doc) {
             try {
               if (userName == doc['Username'] && passWord == doc['Password']) {
@@ -233,13 +226,13 @@ class AccountModel {
                         builder: (context) => CSBookController(username: userName, password: passWord,)));
               } else if (userName == doc['Username'] &&
                   passWord != doc['Password']) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   backgroundColor: Colors.deepPurple,
                   content: Text("Invalid Password"),
                 ));
               } else if (userName != doc['Username'] &&
                   passWord == doc['Password']) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   backgroundColor: Colors.deepPurple,
                   content: Text("Invalid Username"),
                 ));
@@ -258,18 +251,16 @@ class AccountModel {
               ));
             }
           });
-        });
+        }
       });
     }
   }
 
-  /**
-   * Adds username and password to collection Accounts on Firebase.
-   * @author: Elijah Yeboah
-   * @param: Username - Takes in a string username.
-   * @param: Password - Takes in a string password.
-   * @return: none
-   */
+  /// Adds username and password to collection Accounts on Firebase.
+  /// @author: Elijah Yeboah
+  /// @param: Username - Takes in a string username.
+  /// @param: Password - Takes in a string password.
+  /// @return: none
   void addAccount(String userName, String passWord) {
     FirebaseFirestore.instance.collection('Accounts').add({
       'Username': userName,

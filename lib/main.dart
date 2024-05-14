@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:group_d_final/Controllers/controller.dart';
 import 'package:group_d_final/views/WelcomePage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:group_d_final/firebase_options.dart';

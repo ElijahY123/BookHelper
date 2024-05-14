@@ -68,8 +68,8 @@ class _accountLogin extends State<loginPage> {
                     TextField(
                       controller: accountModel.usernameController,
                       obscureText: false,
-                      decoration: InputDecoration(
-                        label: const Text(
+                      decoration: const InputDecoration(
+                        label: Text(
                           "Username",
                           style: TextStyle(
                             color: Colors.deepPurple,
@@ -80,8 +80,8 @@ class _accountLogin extends State<loginPage> {
                     TextField(
                       controller: accountModel.passwordController,
                       obscureText: true,
-                      decoration: InputDecoration(
-                        label: const Text(
+                      decoration: const InputDecoration(
+                        label: Text(
                           "Password",
                           style: TextStyle(
                             color: Colors.deepPurple,
@@ -127,7 +127,7 @@ class _accountLogin extends State<loginPage> {
                         "Not a member?",
                       style: GoogleFonts.gasoekOne(
                         color: Colors.deepPurple,
-                        textStyle: TextStyle(
+                        textStyle: const TextStyle(
                           fontSize: 20,
                         ),
                       ),
@@ -136,7 +136,7 @@ class _accountLogin extends State<loginPage> {
                         onPressed: () {
                           Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
-                                  builder: (context) => registerPage()));
+                                  builder: (context) => const registerPage()));
                         },
                         child: Text(
                           "Join Now!",

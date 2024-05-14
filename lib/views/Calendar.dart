@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:group_d_final/Models/model.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:group_d_final/Models/Event.dart';
-import 'dart:async';
 
 class Calendar extends StatelessWidget {
   CalendarModel calendarModel = CalendarModel();
@@ -24,7 +23,7 @@ class Calendar extends StatelessWidget {
   final List<String> Function(dynamic context) getBookList;
   final Function() updateEventsFromDatabase;
 
-  Calendar({
+  Calendar({super.key, 
     required this.username,
     required this.today,
     required this.firstDay,
@@ -48,7 +47,7 @@ class Calendar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Calendar'),
+        title: const Text('Calendar'),
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -58,7 +57,7 @@ class Calendar extends StatelessWidget {
                 builder: (context) {
                   return AlertDialog(
                       actionsOverflowAlignment: OverflowBarAlignment.center,
-                      title: Text("Add Event"),
+                      title: const Text("Add Event"),
                       actions: [
                         ElevatedButton(
                           onPressed: () {
@@ -66,14 +65,14 @@ class Calendar extends StatelessWidget {
                                 context: context,
                                 builder: (context) {
                                   return AlertDialog(
-                                    title: Text("Book for class"),
+                                    title: const Text("Book for class"),
                                     content: Padding(
-                                        padding: EdgeInsets.all(8),
+                                        padding: const EdgeInsets.all(8),
                                         child: DropdownSearch<String>(
                                             items: getBookList(context),
                                             selectedItem: selectedItem,
                                             popupProps:
-                                                PopupPropsMultiSelection.menu(
+                                                const PopupPropsMultiSelection.menu(
                                               showSelectedItems: true,
                                               showSearchBox: true,
                                             ),
@@ -88,14 +87,14 @@ class Calendar extends StatelessWidget {
                                            DateTime tempDay = DateTime(today.year, today.month, today.day, 0, 0, 0, 0, 0);
 
                                           if (events[tempDay] != null) {
-                                            events[tempDay]?.add(Event("Bring ${selectedItem} to class"));
+                                            events[tempDay]?.add(Event("Bring $selectedItem to class"));
                                           }
-                                          events.putIfAbsent(tempDay, () => [Event("Bring ${selectedItem} to class")]);
+                                          events.putIfAbsent(tempDay, () => [Event("Bring $selectedItem to class")]);
 
 
                                           calendarModel.addEvent(
                                               username,
-                                              "Bring ${selectedItem} to class",
+                                              "Bring $selectedItem to class",
                                               today);
 
                                           /*
@@ -108,13 +107,13 @@ class Calendar extends StatelessWidget {
                                               getEventsForDay(today);
                                           onDaySelected(today, today);
                                         },
-                                        child: Text("Submit"),
+                                        child: const Text("Submit"),
                                       ),
                                     ],
                                   );
                                 });
                           },
-                          child: Text("Book for Class"),
+                          child: const Text("Book for Class"),
                         ),
                         ElevatedButton(
                           onPressed: () {
@@ -122,14 +121,14 @@ class Calendar extends StatelessWidget {
                                 context: context,
                                 builder: (context) {
                                   return AlertDialog(
-                                    title: Text("Book Delivery"),
+                                    title: const Text("Book Delivery"),
                                     content: Padding(
-                                        padding: EdgeInsets.all(8),
+                                        padding: const EdgeInsets.all(8),
                                         child: DropdownSearch<String>(
                                             items: getBookList(context),
                                             selectedItem: selectedItem,
                                             popupProps:
-                                                PopupPropsMultiSelection.menu(
+                                                const PopupPropsMultiSelection.menu(
                                               showSelectedItems: true,
                                               showSearchBox: true,
                                             ),
@@ -142,14 +141,14 @@ class Calendar extends StatelessWidget {
                                           print("Submitted");
                                           DateTime tempDay = DateTime(today.year, today.month, today.day, 0, 0, 0, 0, 0);
                                           if (events[tempDay] != null) {
-                                            events[tempDay]?.add(Event("${selectedItem} is being delivered"));
+                                            events[tempDay]?.add(Event("$selectedItem is being delivered"));
                                           }
-                                          events.putIfAbsent(tempDay, () => [Event("${selectedItem} is being delivered")]);
+                                          events.putIfAbsent(tempDay, () => [Event("$selectedItem is being delivered")]);
 
 
                                           calendarModel.addEvent(
                                               username,
-                                              "${selectedItem} is being delivered",
+                                              "$selectedItem is being delivered",
                                               today);
                                           /*
                                         events.addAll({
@@ -162,13 +161,13 @@ class Calendar extends StatelessWidget {
                                               getEventsForDay(today);
                                           onDaySelected(today, today);
                                         },
-                                        child: Text("Submit"),
+                                        child: const Text("Submit"),
                                       ),
                                     ],
                                   );
                                 });
                           },
-                          child: Text("Book Delivery"),
+                          child: const Text("Book Delivery"),
                         ),
                         ElevatedButton(
                           onPressed: () {
@@ -176,14 +175,14 @@ class Calendar extends StatelessWidget {
                                 context: context,
                                 builder: (context) {
                                   return AlertDialog(
-                                    title: Text("Book Rental"),
+                                    title: const Text("Book Rental"),
                                     content: Padding(
-                                        padding: EdgeInsets.all(8),
+                                        padding: const EdgeInsets.all(8),
                                         child: DropdownSearch<String>(
                                             items: getBookList(context),
                                             selectedItem: selectedItem,
                                             popupProps:
-                                                PopupPropsMultiSelection.menu(
+                                                const PopupPropsMultiSelection.menu(
                                               showSelectedItems: true,
                                               showSearchBox: true,
                                             ),
@@ -195,13 +194,13 @@ class Calendar extends StatelessWidget {
                                         onPressed: () {
                                           DateTime tempDay = DateTime(today.year, today.month, today.day, 0, 0, 0, 0, 0);
                                           if (events[tempDay] != null) {
-                                            events[tempDay]?.add(Event("${selectedItem} is due to be returned"));
+                                            events[tempDay]?.add(Event("$selectedItem is due to be returned"));
                                           }
-                                          events.putIfAbsent(tempDay, () => [Event("${selectedItem} is due to be returned")]);
+                                          events.putIfAbsent(tempDay, () => [Event("$selectedItem is due to be returned")]);
 
                                           calendarModel.addEvent(
                                               username,
-                                              "${selectedItem} is due to be returned",
+                                              "$selectedItem is due to be returned",
                                               today);
                                           /*
                                           events.addAll({
@@ -213,13 +212,13 @@ class Calendar extends StatelessWidget {
                                               getEventsForDay(today);
                                           onDaySelected(today, today);
                                         },
-                                        child: Text("Submit"),
+                                        child: const Text("Submit"),
                                       ),
                                     ],
                                   );
                                 });
                           },
-                          child: Text("Book Rental"),
+                          child: const Text("Book Rental"),
                         ),
                         ElevatedButton(
                           onPressed: () {
@@ -227,9 +226,9 @@ class Calendar extends StatelessWidget {
                                 context: context,
                                 builder: (context) {
                                   return AlertDialog(
-                                    title: Text("Custom Event"),
+                                    title: const Text("Custom Event"),
                                     content: Padding(
-                                      padding: EdgeInsets.all(8),
+                                      padding: const EdgeInsets.all(8),
                                       child: TextField(
                                         controller: eventController,
                                       ),
@@ -249,12 +248,12 @@ class Calendar extends StatelessWidget {
                                             selectedEvents.value =
                                                 getEventsForDay(today);
                                           },
-                                          child: Text("Submit"))
+                                          child: const Text("Submit"))
                                     ],
                                   );
                                 });
                           },
-                          child: Text("Custom Event"),
+                          child: const Text("Custom Event"),
                         ),
                       ]
                       /*scrollable: true,
@@ -282,13 +281,13 @@ class Calendar extends StatelessWidget {
                       );
                 });
           },
-          child: Icon(Icons.add)),
+          child: const Icon(Icons.add)),
       body: Column(children: [
         TableCalendar(
           locale: "en_US",
           rowHeight: 40,
           headerStyle:
-              HeaderStyle(formatButtonVisible: false, titleCentered: true),
+              const HeaderStyle(formatButtonVisible: false, titleCentered: true),
           availableGestures: AvailableGestures.all,
           selectedDayPredicate: (day) => isSameDay(day, today),
           focusedDay: today,
@@ -297,7 +296,7 @@ class Calendar extends StatelessWidget {
           onDaySelected: onDaySelected,
           eventLoader: getEventsForDay,
         ),
-        SizedBox(height: 7.0),
+        const SizedBox(height: 7.0),
         Expanded(
           child: ValueListenableBuilder<List<Event>>(
               valueListenable: selectedEvents,
@@ -307,14 +306,14 @@ class Calendar extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return Container(
                           margin:
-                              EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                              const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
                             color: Colors.deepPurpleAccent,
                           ),
                           child: ListTile(
                             textColor: Colors.white70,
-                            title: Text('${value[index].title}'),
+                            title: Text(value[index].title),
                           ));
                     });
               }),

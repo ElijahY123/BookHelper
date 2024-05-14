@@ -5,7 +5,7 @@ class Profile extends StatelessWidget {
   String username;
   String password;
 
-  Profile({
+  Profile({super.key, 
     required this.username,
     required this.password,
   });
@@ -16,21 +16,21 @@ class Profile extends StatelessWidget {
       backgroundColor: Colors.deepPurple,
       body: ListView(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
-          Icon(
+          const Icon(
             Icons.person,
             size: 200,
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Text(
             "Username: $username",
             style: GoogleFonts.shizuru(
                 color: Colors.white,
-                textStyle: TextStyle(
+                textStyle: const TextStyle(
                   fontSize: 30,
                 )),
             textAlign: TextAlign.center,
@@ -39,7 +39,7 @@ class Profile extends StatelessWidget {
             "Password: $password",
             style: GoogleFonts.shizuru(
                 color: Colors.white,
-                textStyle: TextStyle(
+                textStyle: const TextStyle(
                   fontSize: 30,
                 )),
             textAlign: TextAlign.center,
@@ -52,7 +52,7 @@ class Profile extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text("Sign Out"),
+                child: const Text("Sign Out"),
               ),
             ),
           ),

@@ -67,7 +67,7 @@ class _accountCreate extends State<registerPage> {
                     TextField(
                       controller: accountModel.usernameController,
                       obscureText: false,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         label: Text(
                           "Username",
                           style: TextStyle(
@@ -79,7 +79,7 @@ class _accountCreate extends State<registerPage> {
                     TextField(
                       controller: accountModel.passwordController,
                       obscureText: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         label: Text(
                           "Password",
                           style: TextStyle(
@@ -91,7 +91,7 @@ class _accountCreate extends State<registerPage> {
                     TextField(
                       controller: accountModel.confirmController,
                       obscureText: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         label: Text(
                           "Confirm Password",
                           style: TextStyle(
@@ -109,7 +109,7 @@ class _accountCreate extends State<registerPage> {
                               .addAccount(accountModel.userName, accountModel.passWord);
                           Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
-                                  builder: (context) => loginPage()));
+                                  builder: (context) => const loginPage()));
                         }
                         else {
                           ScaffoldMessenger.of(context)
@@ -151,7 +151,7 @@ class _accountCreate extends State<registerPage> {
                       "Already a member?",
                       style: GoogleFonts.gasoekOne(
                         color: Colors.deepPurple,
-                        textStyle: TextStyle(
+                        textStyle: const TextStyle(
                           fontSize: 20,
                         ),
                       ),
@@ -160,7 +160,7 @@ class _accountCreate extends State<registerPage> {
                       onPressed: () {
                         Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
-                                builder: (context) => loginPage()));
+                                builder: (context) => const loginPage()));
                       },
                       child: Text(
                         "Login!",
